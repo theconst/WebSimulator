@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Simulator | Login</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/style.css">
+    <script src="libs/jquery-3.1.1.min.js"></script>
+    <script src="libs/validator.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <h3 class="text-center">Sign in to Web Simulator</h3>
+                <hr/>
+                <form action="/WebSimulator/signup" method="POST" class="form-signin" data-toggle="validator" role="form">
+                    <div class="form-group has-feedback">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Email or username" required="required" autofocus="autofocus" class="form-control"
+                               data-maxlength="15" data-minlength="4"/>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <div class="help-block with-errors">Enter nickname from 4-15 digits</div>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Email" required="required" autofocus="autofocus" class="form-control"/>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="group">Group</label>
+                        <input type="text" name="group" id="group" placeholder="Group" required="required" autofocus="autofocus" class="form-control"/>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <label for="password">Password
+                            <!--<a href="#" class="login-fg-pwd">Forgot password?</a>-->
+                        </label>
+                        <input type="password" name="password" id="password" placeholder="Password" required="required" class="form-control"
+                            data-minlength="6"/>
+                        <div class="help-block with-errors">Enter password at least 6 digits</div>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Create account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

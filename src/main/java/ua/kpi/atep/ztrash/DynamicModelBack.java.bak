@@ -1,0 +1,160 @@
+/*
+ * DynamicModel.java
+ */
+package ua.kpi.atep.model.dynamic;
+
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import ua.kpi.atep.model.dynamic.items.DynamicItem;
+
+/**
+ * Represents the dynamic system
+ *
+ * Each channel is a dynamic item and has its own string id
+ *
+ * The caller is responsible for storing the date
+ *
+ * @author Kostiantyn Kovalchuk
+ */
+abstract public class DynamicModel implements Serializable {
+
+    private static final long serialVersionUID = 997L;
+
+    private static final String ILLEGAL_TYPE_MESSAGE
+            = "Specify valid dynamic model model";
+
+    private static final String ILLEGAL_OUTPUT_MESSAGE
+            = "Not all output parameters specified";
+
+    private static final String ILLEGAL_ARGUMENT_EXCEPTION_MESSAGE_FORMAT
+            = "Invalid arguments passed to the dynamic model: passed=[%s],%n required=[%s]";
+
+    public DynamicItem[][] transferFunctions;
+
+    protected int noOfInputs;
+    protected int noOfOutputs;
+
+    protected double nextTickStart = 0;
+
+    private double[][] output;
+    
+    private Map<String, Integer> inputNames = new HashMap<>();
+    
+    private Map<String, Integer> outputName = new HashMap<>();
+    
+    private Map<String, List<Double>> result = new HashMap<>();
+
+    protected DynamicModel(int noOfInputs, int noOfOutputs) {
+        this.noOfInputs = noOfInputs;
+        this.noOfOutputs = noOfOutputs;
+        transferFunctions = new DynamicItem[noOfInputs][noOfOutputs];
+    }
+
+    protected void setTransferFunction(int noOfInput, int noOfOutput,
+            DynamicItem tf) {
+        assert (noOfInput > 0 && noOfOutput > 0);
+        assert (noOfInput < transferFunctions.length);
+        assert (noOfOutput < transferFunctions[noOfInput].length);
+
+        transferFunctions[noOfInput][noOfOutput] = tf;
+    }
+    
+    protected void setInputName(int index, String name) {
+        inputNames.put(name, index);
+    }
+    
+    protected void setOutputName(int index, String name) {
+        outputName.put(name, index);
+    }
+    
+    private int getOutputIndex(String name) {
+        return outputName.get(name);
+    }
+    
+    private int getInputIndex(String name) {
+        return outputName.get(name);
+    } 
+
+    public final Map<String, List<Double>> value(Map<String, Double> input) {
+        if (!isValidInput(input)) {
+            throw new IllegalArgumentException(
+                    String.format(ILLEGAL_ARGUMENT_EXCEPTION_MESSAGE_FORMAT, input,
+                            getInputParams())
+            );
+        }
+        Map<String, List<Double>> result = toOutput(handleInput(toInput(input));
+        if (!isValidOutput(result)) {
+            throw new IllegalStateException();
+        }
+        return Collections.unmodifiableMap(result);
+    }
+
+    private double[][] value(double... inputs) {
+        double timespan = inputs[0];
+        double sampling = inputs[1];
+
+        /* do not add sampling on the first step */
+        nextTickStart = (nextTickStart == 0) ? 0 : nextTickStart + sampling;
+        int len = length(timespan, sampling);
+        output = allocate(len);
+        int ticksInd = noOfOutputs;
+
+        for (int tk = 0; tk < len; ++tk) {
+            for (int inp = 0; inp < noOfInputs; ++inp) {
+                for (int out = 0; out < noOfOutputs; out++) {
+                    output[out][tk] += value(transferFunctions[inp][out],
+                            inputs[inp], timespan);
+                }
+            }
+            output[ticksInd][tk] = (tk == 0) ? nextTickStart
+                    : output[ticksInd][tk - 1] + sampling;
+        }
+        nextTickStart = output[ticksInd][len - 1];
+        return output;
+    }
+
+    private int length(double timespan, double sampling) {
+        return (int) (timespan / sampling) + 1;
+    }
+
+    private double[][] allocate(int len) {
+        return (output[0].length == len) ? output
+                : new double[noOfOutputs + 1][len];
+    }
+
+    private double value(DynamicItem item, double input, double timespan) {
+        return (item == null) ? 0 : item.value(input, timespan);
+    }
+
+    private boolean isValidInput(Map<String, Double> input) {
+        return getInputParams().stream().allMatch(input::containsKey);
+    }
+
+    private boolean isValidOutput(Map<String, List<Double>> output) {
+        return getOutputParams().stream().allMatch(output::containsKey);
+    }
+
+    abstract public List<String> getInputParams();
+
+    abstract public List<String> getOutputParams();
+
+    abstract protected double[] toInput(Map<String, Double> input) {
+        double[] result = new double[inputsNo]
+    }
+
+    protected Map<String, List<Double>> toOutput(double[][] outputs) {
+        
+    }
+
+    public static DynamicModel createModel(DynamicModelType type) {
+        switch (type) {
+            case VAPOR_HEATER:
+                return new VaporHeater();
+            default:
+                throw new IllegalArgumentException(ILLEGAL_TYPE_MESSAGE);
+        }
+    }
+}

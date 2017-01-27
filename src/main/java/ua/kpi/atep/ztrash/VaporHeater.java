@@ -1,0 +1,145 @@
+package ua.kpi.atep.ztrash;
+
+///*
+// * VaporHeater.java
+// */
+//package ua.kpi.atep.model.dynamic;
+//
+//import java.util.ArrayList;
+//import ua.kpi.atep.model.dynamic.items.DynamicItemUtils;
+//import ua.kpi.atep.model.dynamic.items.DynamicItemFactory;
+//import ua.kpi.atep.model.dynamic.items.DynamicItem;
+//import java.util.Arrays;
+//import java.util.Collections;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+///**
+// *
+// * @author
+// */
+//public class VaporHeater extends DynamicModel {
+//
+//    private static final long serialVersionUID = 2793L;
+//
+//    /* more clear code than with enums */
+//    private static final String TIMESPAN = "timespan";
+//    private static final String SAMPLING = "sampling";
+//    private static final String TICKS = "ticks";
+//    private static final String VALVE_POS_1 = "input1";
+//    private static final String VALVE_POS_2 = "input2";
+//    private static final String VALVE_POS_3 = "input3";
+//    private static final String TEMP_1 = "param1";
+//    private static final String TEMP_2 = "param2";
+//    private static final String TEMP_3 = "param3";
+//    private static final String TEMP_4 = "param4";
+//    private static final String TEMP_5 = "param5";
+//    private static final String TEMP_6 = "param6";
+//
+//    private static final List<String> INPUTS = Arrays.asList(
+//            TIMESPAN, SAMPLING, VALVE_POS_1, VALVE_POS_2, VALVE_POS_3
+//    );
+//
+//    private static final List<String> OUTPUTS = Arrays.asList(
+//             TICKS, TEMP_1, TEMP_2, TEMP_3, TEMP_4, TEMP_5, TEMP_6
+//    );
+//
+//    private static final double DEFAULT_SAMPLING = 0.1;
+//
+//    //items of the 
+//    private DynamicItem temp1;
+//    private DynamicItem temp2;
+//    private DynamicItem temp3;
+//    private DynamicItem temp4;
+//    private DynamicItem temp5;
+//    private DynamicItem temp6;
+//
+//    /**
+//     * Variable for keeping track of the time spent
+//     */
+//    private double nextTickStart;
+//
+//    public VaporHeater(double sampling) {
+//        nextTickStart = 0;
+//     
+//        /* Creating the dynamic items of the */
+//        DynamicItemFactory factory = new DynamicItemFactory(sampling);
+//        temp1 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(30, 100),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//        temp2 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(50, 50),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//        temp3 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(20, 200),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//        temp4 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(20, 200),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//        temp5 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(20, 200),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//        temp6 = DynamicItemUtils.sequentialConnection(
+//                factory.createFirstOrderLag(20, 200),
+//                factory.createDelay(4),
+//                factory.createMeasurmentNoise(1));
+//    }
+//    
+//    public VaporHeater() {
+//        this(DEFAULT_SAMPLING);
+//    }
+//
+//    //!resolve the issue with initialized boolean - just ugly
+//    @Override
+//    protected Map<String, List<Double>> handleInput(Map<String, Double> inputs) {
+//
+//        double timespan = inputs.get(SAMPLING);
+//        double sampling = inputs.get(TIMESPAN);
+//        
+//        /* do not add sampling on the first step */
+//        nextTickStart = (nextTickStart == 0) ? 0 : nextTickStart + sampling;
+//        
+//        double valvePos1 = inputs.get(VALVE_POS_1);
+//        double valvePos2 = inputs.get(VALVE_POS_2);
+//        double valvePos3 = inputs.get(VALVE_POS_3);
+//
+//        int len = (int) (timespan / sampling) + 1;
+//
+//        Map<String, List<Double>> output = new HashMap<>();
+//        
+//
+//        for (int i = 0; i < len; ++i) {
+//            add(output, TEMP_1, temp1.value(valvePos1, timespan));
+//            add(output, TEMP_2, temp2.value(valvePos2, timespan));
+//            add(output, TEMP_3, temp3.value(valvePos3, timespan));
+//            add(output, TEMP_4, temp4.value(valvePos1, timespan));
+//            add(output, TEMP_5, temp5.value(valvePos2, timespan));
+//            add(output, TEMP_6, temp6.value(valvePos3, timespan));
+//            
+//            /* adding sampling by the way */
+//            add(output, TICKS, nextTickStart + i * sampling);
+//        }
+//        
+//        OUTPUTS.forEach(x -> output.put(x, new ArrayList(len)));
+//        
+////        nextTickStart = 
+//        return output;
+//    }
+//    
+//
+//    @Override
+//    public List<String> getInputParams() {
+//        return Collections.unmodifiableList(INPUTS);
+//    }
+//
+//    @Override
+//    public List<String> getOutputParams() {
+//        return Collections.unmodifiableList(OUTPUTS);
+//    }
+//}
