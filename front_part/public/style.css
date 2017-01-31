@@ -1,0 +1,77 @@
+/* Styling Chart */
+
+.content {
+    position: static;
+}
+
+.chartContent {
+    position: relative;
+    width: 450px;
+    height: 400px!important;
+}
+
+/*Form Styling*/
+.form-content {
+    padding-left: 10px;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    border-right: 1px solid #cccccc;
+    width: 200px;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.form-content input[type='text'] {
+    margin-left: 3px;
+    width: 50px!important;
+    border-radius: 1px;
+}
+
+.form-content .glyphicon {
+    margin-right: 6px;
+}
+.form-content .glyphicon:hover {
+    cursor: pointer;
+}
+
+.form-content-hidden  {
+    width: 20px;
+    border-right: none;
+}
+.form-content form input[type='submit'] {
+    margin-left: 10px!important;
+}
+.form-content input[type='range'] {
+    width: 150px!important;
+}
+.form-group {
+    margin-left: 10px;
+}
+
+.multiple-charts {
+    display: inline-block;
+    margin: 30px 30px 30px 60px;
+}
+
+/*SVG Styling*/
+
+#input1, #input2, #input3:hover {
+    cursor: pointer;
+}
+
+.svg-container svg{
+    width: 1200px;
+}
+
+.danger-svg {
+    fill: #bf372b!important;
+}
+
+.warning-svg {
+    fill: #ffb70d!important;
+}
+
+.text-svg {
+    fill: black;
+}
