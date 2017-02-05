@@ -4,6 +4,7 @@
 package ua.kpi.atep.model.entity;
 
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,11 +23,11 @@ import org.hibernate.annotations.NaturalId;
  */
 @Entity
 @Table(name = "modelling_data")
-public class ModellingData {
+public class ModellingData implements Serializable {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private Integer id;
    
     @NaturalId
     @Column(name = "userID")
@@ -41,12 +42,12 @@ public class ModellingData {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
    
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

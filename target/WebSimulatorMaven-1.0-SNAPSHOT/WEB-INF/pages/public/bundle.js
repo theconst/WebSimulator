@@ -22319,7 +22319,7 @@ function shutItDown() {
                                     value: function handleSubmit(e) {
                                         var _this2 = this;
 
-                                        debugger;
+//                                        debugger;
                                         e.preventDefault();
                                         var params = {};
                                         Object.keys(this.state).forEach(function (prop) {
@@ -22328,7 +22328,7 @@ function shutItDown() {
                                                 throw new TypeError('You need to specify correct type.');
                                             params[prop] = val;
                                         });
-                                        debugger;
+//                                        debugger;
                                         this.updateInputs(this.state);
                                         this.props.onFormSubmit({params: params});
                                         return false;
@@ -22761,7 +22761,7 @@ function shutItDown() {
                                                     dataPoints: this.props.dps
                                                 }]
                                         });
-                                        debugger;
+//                                        debugger;
                                         chart.render();
                                         this.setState({chart: chart});
                                     }

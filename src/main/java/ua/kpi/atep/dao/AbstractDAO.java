@@ -14,7 +14,7 @@ import java.util.List;
  * @param <K> KEY of the entity
  * @param <E> Type of the entity
  */
-public interface AbstractDAO<K extends Serializable, E> {
+public interface AbstractDAO<K extends Serializable, E extends Serializable> {
     
 
     /**
@@ -36,7 +36,6 @@ public interface AbstractDAO<K extends Serializable, E> {
      * Deletes the entity
      *
      * @param key
-     * @return old value
      */
     void delete(K key);
     /**

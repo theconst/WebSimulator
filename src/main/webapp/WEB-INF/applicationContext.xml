@@ -3,6 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation=
         "http://www.springframework.org/schema/beans
@@ -15,7 +16,10 @@
          http://www.springframework.org/schema/mvc/spring-mvc.xsd
                            
          http://www.springframework.org/schema/tx
-         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+         
+         http://www.springframework.org/schema/util
+         http://www.springframework.org/schema/util/spring-util-4.3.xsd">
     
     <!-- Placeholder for resolving properties in xml file -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -29,7 +33,7 @@
   
     <!-- Spring orm configuration -->
     <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="packagesToScan" value="ua.kpi.atep.model.entity" />
         <property name="hibernateProperties">
@@ -43,19 +47,59 @@
  
     <!-- Enable declarative transaction management -->
     <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
     <!-- Transactoin post processing -->
     <bean id="persistenceExceptionTranslationPostProcessor"
           class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    
+    <!-- XML processing 
+    <util:constant id="XML_SCHEMA_NS_URI"
+                   static-field="javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI" />
+    -->
+    <!-- not thread-safe; therefore prototype
+    <bean id="schemaFactory" 
+          class="javax.xml.validation.SchemaFactory" 
+          scope="prototype">
+        <constructor-arg ref="XML_SCHEMA_NS_URI" />
+    </bean>
+    
+    <bean id="schemaFile" class="java.io.File">
+        <constructor-arg value="/WEB-INF/classes/assignment.xsd" />
+    </bean>
+    
+    
+    <bean id="assignmentSchema"
+          factory-bean="schemaFactory"
+          factory-method="createSchema">
+        <constructor-arg ref="schemaFile" />
+    </bean>  -->
+    
+    <!-- not thread-save
+    <bean id="assignmentDocumentBuilderFactory" 
+          factory-method="newInstance" 
+          scope="prototype" >
+        <property name="schema" ref="assignmentSchema" />
+        <property name="validating" value="true" />
+        <property name="ignoringComments" value="true" />
+    </bean>   
+    
+    
+    <bean id="assignmentJaxbContext"
+          class="javax.xml.bind.JAXBContext"
+          factory-method="newInstance">
+        <constructor-arg value="ua.kpi.atep.xml.generated.assignment" />
+        <property name="schema" ref="assignmentSchema" />
+    </bean> -->
  
     <!-- Enable annotation driven transations -->
     <tx:annotation-driven />
-      
+    
     <!-- application-wide services -->
     <context:component-scan base-package="ua.kpi.atep.services.impl"/>
+    <context:component-scan base-package="ua.kpi.atep.services.serialization" />
     <context:component-scan base-package="ua.kpi.atep.model.entity"/> 
     <context:component-scan base-package="ua.kpi.atep.dao.hibernate"/>
 </beans>

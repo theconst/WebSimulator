@@ -32,6 +32,7 @@
         </property>
     </bean>
 
+    <!-- Path to static resorces for html pages -->
     <bean id="staticResources" 
           class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
         <property name="locations">
@@ -39,6 +40,12 @@
                 <value>${web.pages.location}</value>
             </list>
         </property>
+    </bean>
+    
+    <!-- file upload resolver -->
+    <bean id="multipartResolver" 
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+      <!--  <property name="maxUploadSize" value="${web.param.filesize}" /> -->
     </bean>
   
     <!-- Using annotation-based configuration of controller -->

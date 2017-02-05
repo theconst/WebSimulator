@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
-import ua.kpi.atep.dynamic.generic.DynamicModel;
+import ua.kpi.atep.model.dynamic.object.DynamicModel;
 import ua.kpi.atep.services.UserSession;
 
 /**

@@ -23,10 +23,10 @@ public class DefaultPasswordHasher implements PasswordHasher {
     private static final String DEFAULT_HASHER = "default hasher, easy to break";
 
     @Override
-    public String toHash(String password) {
-        return password.chars().map(x -> x ^ SECRET).mapToObj(Integer::toString)
-                .reduce(String::concat).get();
-    }
+        public String toHash(String password) {
+            return password.chars().map(x -> x ^ SECRET).mapToObj(Integer::toString)
+                    .reduce(String::concat).get();
+        }
 
     @Override
     public String getType() {

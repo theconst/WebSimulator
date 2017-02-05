@@ -13,37 +13,40 @@ import ua.kpi.atep.dao.AbstractDAO;
 
 /**
  * Abstract data access object for hibernate;
- * 
+ *
  * Provides generic implmentation of CRUD operations
- * 
+ *
  * Throws hibernate's specific unchecked excpetion
- * 
+ *
  * Example taken from: https://developer.jboss.org/wiki/GenericDataAccessObjects
  *
  * @param <K> key
  * @param <E> entity
  * @author Kostiantyn Kovalchuk
  */
-abstract public class AbstractHibernateDAO<K extends Serializable, E> implements AbstractDAO<K, E> {
-    
+abstract public class AbstractHibernateDAO<K extends Serializable, E extends Serializable> implements AbstractDAO<K, E> {
+
+    private static final int SECOND_ARG = 1;
+
     /* is wired from hibernate session factory from the applicationContext.xml file */
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     private Class<E> persistentClass;
-    
+
     protected Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
-    
+
     public AbstractHibernateDAO() {
-        
+
         /*
-         * allows to infer actual type parameters from SUBCLASSED instance
-         * strick from https://developer.jboss.org/wiki/GenericDataAccessObjects
+         * Allows to infer actual type parameters from SUBCLASSED instance
+         * trick from https://developer.jboss.org/wiki/GenericDataAccessObjects
          */
-        this.persistentClass = (Class<E>)  ((ParameterizedType) getClass()  
-                           .getGenericSuperclass()).getActualTypeArguments()[0];
+        this.persistentClass = (Class<E>) ((ParameterizedType) getClass()
+                .getGenericSuperclass())
+                .getActualTypeArguments()[SECOND_ARG];
     }
 
     @Override
@@ -64,12 +67,12 @@ abstract public class AbstractHibernateDAO<K extends Serializable, E> implements
 
     @Override
     public void create(E entity) {
-         getCurrentSession().save(entity);
+        getCurrentSession().save(entity);
     }
 
     @Override
     public void update(E entity) {
-       getCurrentSession().saveOrUpdate(entity);
+        getCurrentSession().saveOrUpdate(entity);
     }
-    
+
 }

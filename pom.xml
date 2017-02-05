@@ -16,12 +16,10 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.3.5.RELEASE</spring.version>
-        <hibernate.version>5.2.5.Final</hibernate.version>
+        <hibernate.version>4.3.11.Final</hibernate.version>
     </properties>
     
     <dependencies>
-
-        
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -99,11 +97,38 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.23</version>
         </dependency>
-
         
+        <!-- https://mvnrepository.com/artifact/javax.xml.parsers/jaxp-api -->
+        <dependency>
+            <groupId>javax.xml.parsers</groupId>
+            <artifactId>jaxp-api</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.parsers/jaxp-ri -->
+        <!-- old low-level streaming xml parser -->
+        <dependency>
+            <groupId>com.sun.xml.parsers</groupId>
+            <artifactId>jaxp-ri</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
+
     </dependencies>
     
+    
+    
     <build>
+        <!-- source files for typecript , not included in war -->
+        <resources>
+            <resource>
+                <directory>src/main/resources/typescript</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

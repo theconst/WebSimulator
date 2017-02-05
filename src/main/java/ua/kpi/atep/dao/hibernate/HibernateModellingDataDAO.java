@@ -17,7 +17,7 @@ public class HibernateModellingDataDAO extends AbstractHibernateDAO<Integer, Mod
 
     @Override
     public ModellingData getByUserId(int uid) {
-        return getCurrentSession().bySimpleNaturalId(ModellingData.class)
+        return (ModellingData)getCurrentSession().bySimpleNaturalId(ModellingData.class)
                 .load(uid);
     }
 
@@ -25,7 +25,5 @@ public class HibernateModellingDataDAO extends AbstractHibernateDAO<Integer, Mod
     public void deleteByUserId(int uid) {
         
     }
-
-    
     
 }

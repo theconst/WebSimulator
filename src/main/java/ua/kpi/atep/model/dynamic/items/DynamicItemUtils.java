@@ -33,6 +33,13 @@ public class DynamicItemUtils {
         checkItems(items);
 
         double samplingTime = items[0].getSamplingTime();
+        
+        double initialCondition = items[0].getInitialCondition();
+        
+        /* set initial condition as for the first item in chain */
+        for (DynamicItem item : items) {
+            item.setInitialCondition(initialCondition);
+        }
 
         return new DynamicItem(samplingTime) {
 

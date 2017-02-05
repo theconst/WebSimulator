@@ -3,7 +3,12 @@
  */
 package ua.kpi.atep.controller;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -14,10 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.multipart.MultipartFile;
 
 import ua.kpi.atep.services.*;
 
 import static ua.kpi.atep.controller.WebSocketMediator.interactWithHttp;
+import ua.kpi.atep.model.entity.Assignment;
+import ua.kpi.atep.model.entity.Student;
+import static ua.kpi.atep.services.AppModelState.ADMIN_LOGIN;
+import static ua.kpi.atep.services.AppModelState.ASSIGNMENT_CREATION_SUCCESS;
 
 //model states
 import static ua.kpi.atep.services.AppModelState.LOGIN_FAILURE;
@@ -26,6 +36,8 @@ import static ua.kpi.atep.services.AppModelState.REGISTER_SUCCESS;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_NO_ASSIGNMENT;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_START;
 import static ua.kpi.atep.services.AppModelState.UNATORIZED_ACCESS;
+import ua.kpi.atep.services.serialization.SerializationException;
+import ua.kpi.atep.services.serialization.Serializer;
 
 /**
  * Front servlet that dispatches all http requests from the user
@@ -39,6 +51,11 @@ public class FrontController {
      * string used to redirect to static page
      */
     private static final String SPRING_REDIR = "redirect:";
+
+    private static final String ATTACHMENT = "attachment;filename=values.csv";
+
+    private static final String CONTENT_DISPOSITION_HEADER
+            = "Content-Disposition";
 
     /*
      * URL's for the applicaton
@@ -103,6 +120,15 @@ public class FrontController {
     @Autowired
     private SimulationService simulationService;
 
+    @Autowired
+    private AdministrationService administrationService;
+
+    @Autowired
+    private Serializer<List<Student>, String, String> studentListSerializer;
+
+    @Autowired
+    private Serializer<Assignment, Reader, Writer> assignmentSerializer;
+
     /*
      * Controller is sinleton
      * Sesssion scoped bean is proxied
@@ -125,14 +151,18 @@ public class FrontController {
     private void initViewResolver() {
         //is initiazed on container initialization , no synchronization needed
         viewResolver = new EnumMap<>(AppModelState.class);
-        
+
         viewResolver.put(SIMULATION_START, redirectTo(simulationPage));
         viewResolver.put(LOGIN_SUCCESS, redirectTo(homePage));
+        viewResolver.put(ADMIN_LOGIN, redirectTo(adminpanelPage));
         viewResolver.put(LOGIN_FAILURE, redirectTo(loginPage));
         viewResolver.put(REGISTER_SUCCESS, redirectTo(loginPage));
         viewResolver.put(SIMULATION_START, redirectTo(simulationPage));
         viewResolver.put(UNATORIZED_ACCESS, redirectTo(homePage));
         viewResolver.put(SIMULATION_NO_ASSIGNMENT, redirectTo(errorPage));
+
+        viewResolver.put(
+                ASSIGNMENT_CREATION_SUCCESS, redirectTo(adminpanelPage));
     }
 
     /**
@@ -175,8 +205,7 @@ public class FrontController {
             method = RequestMethod.POST)
     public String signup(HttpServletRequest request) {
         return resolveView(
-                registerService.register(
-                        userSession,
+                registerService.register(userSession,
                         request.getParameter(usernameParam),
                         request.getParameter(loginParam),
                         request.getParameter(passwordParam),
@@ -210,7 +239,6 @@ public class FrontController {
      */
     @RequestMapping(value = "${web.action.simulate}")
     public String startSimulation(HttpServletRequest request) {
-
         AppModelState simulationStartResult
                 = simulationService.initSimulation(userSession);
 
@@ -224,14 +252,50 @@ public class FrontController {
 
         return resolveView(simulationStartResult);
     }
-    
-    
-    @RequestMapping(value= "${web.action.history}")
+
+    @RequestMapping(value = "${web.action.history}")
     @ResponseBody
     public String getStory(HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment;filename=values.csv");
+        response.setHeader(CONTENT_DISPOSITION_HEADER, ATTACHMENT);
         response.setContentType(simulationService.getUserActivityContentType());
         return simulationService.getUserActivity(userSession.getUser().getId());
+    }
+
+    @RequestMapping(value = "${web.action.uploadmodel}")
+    public String uploadModel(
+            @RequestParam("${web.param.modelfile}") MultipartFile file,
+            HttpServletResponse response)
+            throws IOException, SerializationException {
+        Assignment assignment = assignmentSerializer.deserialize(
+                new InputStreamReader(file.getInputStream(), "UTF-8")); 
+        AppModelState result = administrationService.createAssignment(
+                userSession, assignment);
+
+        return resolveView(result);
+    }
+
+    @RequestMapping(value = "${web.action.assignvariant}")
+    @ResponseBody
+    public void assignVariant(
+            @RequestParam("${web.param.variant}") int variant,
+            @RequestParam("${web.param.username}") String login,
+            HttpServletResponse response) {
+        if (administrationService.setAssigmnent(variant, login)
+                == ASSIGNMENT_CREATION_SUCCESS) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "${web.action.liststudents}",
+            method = RequestMethod.GET,
+            produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String getStudentList() throws SerializationException {
+        List<Student> students
+                = administrationService.getStudentList(userSession);
+        return studentListSerializer.serialize(students);
     }
 
     /**

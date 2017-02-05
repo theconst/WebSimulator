@@ -4,8 +4,6 @@
 package ua.kpi.atep.controller.socket;
 
 import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.websocket.DecodeException;

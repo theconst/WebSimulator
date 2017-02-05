@@ -3,7 +3,6 @@
  */
 package ua.kpi.atep.services.impl;
 
-import ua.kpi.atep.services.CSVWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,8 @@ import ua.kpi.atep.services.UserSession;
  */
 @Service
 public class SimulationServiceImpl implements SimulationService {
+    
+    //Since file is created externally the service defines content type
 
     /**
      * message to logger with placeholder for user name
@@ -67,7 +68,6 @@ public class SimulationServiceImpl implements SimulationService {
     @Transactional
     public String getUserActivity(int userID) {
         ModellingData story = dataDAO.getByUserId(userID);
-        
         
         return story.getData();
     }

@@ -6,21 +6,22 @@ package ua.kpi.atep.controller.socket;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ua.kpi.atep.services.serialization.CSVWriter;
 import ua.kpi.atep.services.SimulationService;
-
-import ua.kpi.atep.services.CSVWriter;
 
 import static ua.kpi.atep.controller.WebSocketMediator.getDynamicModel;
 import static ua.kpi.atep.controller.WebSocketMediator.getUserID;
 
-import ua.kpi.atep.dynamic.generic.DynamicModel;
+import ua.kpi.atep.model.dynamic.object.DynamicModel;
 
 
 /*
@@ -47,16 +48,34 @@ import ua.kpi.atep.dynamic.generic.DynamicModel;
 )
 public class SimulationWebSocket {
 
+    /**
+     * Size of memory chunk / user
+     * Note actual memory size may be twice that larger
+     */
+    private static final int SIZE = 3145728;
+    
+    /*
+     * Names of additional parameters to track (besides model parameters
+     */
     public static final String TICKS = "ticks";
 
     public static final String TIMESPAN = "timespan";
 
     public static final String SAMPLING = "sampling";
 
+    /**
+     * Id of the user
+     */
     private int userID;
 
+    /**
+     * User model
+     */
     private DynamicModel model;
 
+    /**
+     * writer of the story
+     */
     private CSVWriter story;
 
     /**
@@ -73,22 +92,53 @@ public class SimulationWebSocket {
        [ticks]  [1][2][3]... */
     private double[][] processVariables;
 
+    /**
+     * Index of ticks in processVariables array (used for timing)
+     */
     private int ticksInd;
 
+    /**
+     * Memory interval to track
+     */
     private double timespan;
 
+    /**
+     * Desired sampling (interval between measurments)
+     * This DOES NOT influences sampling of the actual model,
+     * e.g. it it is smaller than sampling of the actual dynamic model,
+     * the sampling will be minimum possible, else it will remain the same, 
+     * but less measurements will be made (decimation will occur)
+     */
     private double sampling;
 
+    /**
+     * Number of inputs in the model
+     */
     private int inputCount;
 
+    /**
+     * Number of outputs of the model
+     */
     private int outputCount;
 
+    /**
+     * Time of the next measurment
+     */
     private double nextTickStart = 0.0;
 
+    /**
+     * Names of inputs to track
+     */
     private String[] inputNames;
 
+    /**
+     * Names of outputs to track
+     */
     private String[] outputNames;
 
+    /**
+     * Service for simulation initialization
+     */
     @Autowired
     SimulationService simulationService;
 
@@ -101,22 +151,24 @@ public class SimulationWebSocket {
         userID = getUserID(session);
 
         /* do prior memory allocation */
-        int count = model.getInputsCount() //inputs
-                + model.getOutputsCount() //no of outputs
+        int count = model.getInputsCount()                   //no of inputs
+                + model.getOutputsCount()                    //no of outputs
                 + 1;                                         //for ticks
-        ticksInd = count - 1;
+        ticksInd = count - 1;                                //index of ticks
 
-        inputs = new double[model.getInputsCount()];
-        processVariables = new double[count][0];
+        /* memory allocation */
+        inputs = new double[model.getInputsCount()];         
+        processVariables = new double[count][0];            
 
         /* initialize headers */
-        String[] headers = new String[model.getInputsCount() //inputs
-                + model.getOutputsCount() //no of outputs
+        String[] headers = new String[model.getInputsCount()  //inputs
+                + model.getOutputsCount()                     //no of outputs
                 + 1];                                         //for ticks
 
-        inputNames = model.getInputs();                       //names of inputs
-        outputNames = model.getOutputs();                     //names of outputs
-        inputCount = model.getInputsCount();
+        /* getting required paramters for modelling */
+        inputNames = model.getInputs();                      //names of inputs
+        outputNames = model.getOutputs();                    //names of outputs
+        inputCount = model.getInputsCount();                 
         outputCount = model.getOutputsCount();
 
         /* fill in arrays */
@@ -136,7 +188,7 @@ public class SimulationWebSocket {
         headers[k++] = TICKS;
 
         /* initialize story */
-        story = new CSVWriter(headers);
+        story = new CSVWriter(SIZE, headers);
     }
 
     /**
@@ -169,22 +221,29 @@ public class SimulationWebSocket {
         story.writeChunk(processVariables);
 
         try {
+            /* If user overflows allocated memory, close session,
+               it is CLIENT'S RESPONSIBILITY to hanle messages and 
+               interation */
+            if (story.getSize() >= SIZE) {
+                session.close();
+                return;
+            }
 
-            /* send outputs */
+            /* encode data to client */
             JsonObjectBuilder ob = Json.createObjectBuilder();
 
             for (int k = 0; k < outputNames.length; k++) {
 
-                //add outputs
+                /* add outputs */
                 JsonEncoder.addArray(ob, outputNames[k],
                         JsonEncoder.addAll(processVariables[inputs.length + k]));
             }
-            //add ticks
+            /* add ticks */
             JsonEncoder.addArray(ob, TICKS,
                     JsonEncoder.addAll(processVariables[ticksInd]));
 
             session.getBasicRemote().sendObject(ob.build());
-
+            /********************************/
         } catch (IOException | EncodeException ex) {
             Logger.getLogger(SimulationWebSocket.class.getName())
                     .log(Level.SEVERE, null, ex);
@@ -192,14 +251,15 @@ public class SimulationWebSocket {
     }
 
     /**
-     * When the connection closes, simply get all data out
+     * When the connection closes, persist user data to database
      */
     @OnClose
     public void onClose() {
         try {
             story.close();
         } catch (IOException ex) {
-            Logger.getLogger(SimulationWebSocket.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SimulationWebSocket.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         simulationService.saveModellingData(userID, story.toString());
     }
@@ -239,7 +299,7 @@ public class SimulationWebSocket {
 
             /* fill in array according to the convention */
             for (int j = 0; j < inputCount; ++j) {
-                processVariables[j][i] = inputs[j];               //fill in inpus
+                processVariables[j][i] = inputs[j];            //fill in inpus
             }
 
             /* evaluate the output on the period of ONE Sampling */
@@ -253,7 +313,7 @@ public class SimulationWebSocket {
             }
 
             //fill in ticks
-            processVariables[ticksInd][i] = (i == 0) ? nextTickStart 
+            processVariables[ticksInd][i] = (i == 0) ? nextTickStart
                     : processVariables[ticksInd][i - 1] + sampling;
         }
 
@@ -264,7 +324,16 @@ public class SimulationWebSocket {
         nextTickStart = processVariables[ticksInd][len - 1];
     }
 
-    private double[] allocate(double[] array, int len) {
-        return (array.length == len) ? array : new double[len];
+    /**
+     * Allocates the array lazily
+     * 
+     * If already allocated enough memory, just does nothing
+     * 
+     * @param array array to allocate
+     * @param size size of the array
+     * @return newly allocated array or the same array
+     */
+    private double[] allocate(double[] array, int size) {
+        return (array.length >= size) ? array : new double[size];
     }
 }

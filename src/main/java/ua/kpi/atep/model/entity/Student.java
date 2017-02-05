@@ -1,6 +1,7 @@
 package ua.kpi.atep.model.entity;
 
 import javax.persistence.*;
+import org.hibernate.annotations.OnDelete;
 
 /*
  * 
@@ -35,6 +36,7 @@ public class Student extends User {
         return assignment;
     }
     
+    @Override
     public void setAssignment(Assignment model) {
         this.assignment = model;
     }

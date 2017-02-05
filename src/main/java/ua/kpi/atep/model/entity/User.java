@@ -6,7 +6,6 @@ package ua.kpi.atep.model.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import org.hibernate.annotations.NaturalId;
-import java.util.Set;
 
 /**
  * User of the store
@@ -27,7 +26,7 @@ public abstract class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     /**
      * Login of the user
@@ -47,7 +46,7 @@ public abstract class User implements Serializable {
      *
      * @return id of the user
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -56,7 +55,7 @@ public abstract class User implements Serializable {
      *
      * @param id new user's id
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -111,7 +110,7 @@ public abstract class User implements Serializable {
         throw new UnsupportedOperationException(UNSUPORTED_OPERATION_EXCEPTION);
     }
 
-    public void setAssignment() {
+    public void setAssignment(Assignment assignment) {
         throw new UnsupportedOperationException(UNSUPORTED_OPERATION_EXCEPTION);
     }
 

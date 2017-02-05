@@ -7,7 +7,7 @@ package ua.kpi.atep.model.entity;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.*;
-import ua.kpi.atep.dynamic.generic.DynamicModel;
+import ua.kpi.atep.model.dynamic.object.DynamicModel;
 
 
 
@@ -19,9 +19,16 @@ import ua.kpi.atep.dynamic.generic.DynamicModel;
 @Table(name = "model")
 public class Assignment implements Serializable {
     
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    /**
+     * Variant of the assigment
+     * Assignment has no surrogate id, since it is a managed
+     * item and id is specified manually and conveniently
+     * fits to the model
+     */
+   
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @Column(name = "id")
+    private Integer id;
     
     @Lob
     @Column(name = "model")
@@ -30,15 +37,17 @@ public class Assignment implements Serializable {
     @Column(name = "comment")
     private String comment;
    
-    //! if ever needed, should be called in the same session (just for reference)
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "assignment")
-    private Set<Student> students;
+    
+// not needed    
+//    //! if ever needed, should be called in the same session (just for reference)
+//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "assignment")
+//    private Set<Student> students;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,12 +67,12 @@ public class Assignment implements Serializable {
         this.comment = comment;
     }
 
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
+//    public Set<Student> getStudents() {
+//        return students;
+//    }
+//    
+//    public void setStudents(Set<Student> students) {
+//        this.students = students;
+//    }
     
 }
