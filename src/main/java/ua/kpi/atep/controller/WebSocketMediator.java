@@ -36,7 +36,7 @@ public class WebSocketMediator {
     private boolean interactedWithHttp = false;
 
     private boolean interactedWithWS = false;
-
+    
     private <T> void putAttributeToWS(String name, T value,
             ServerEndpointConfig config) {
         config.getUserProperties().put(name, value);

@@ -107,7 +107,7 @@ public abstract class User implements Serializable {
      * 
      */
     public Assignment getAssignment() {
-        throw new UnsupportedOperationException(UNSUPORTED_OPERATION_EXCEPTION);
+        return null;
     }
 
     public void setAssignment(Assignment assignment) {
@@ -115,7 +115,7 @@ public abstract class User implements Serializable {
     }
 
     public ModellingData getModellingData() {
-        throw new UnsupportedOperationException(UNSUPORTED_OPERATION_EXCEPTION);
+        return null;
     }
 
     public void setModellingData(ModellingData modellingData) {

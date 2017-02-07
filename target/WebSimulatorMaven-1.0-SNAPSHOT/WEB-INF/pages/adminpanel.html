@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<!--
-This is admin panel. From here you can access some advanced features
--->
-<html>
+<html lang="uk">
     <head>
-        <title>Administrator panel</title>
+        <title>Web Simulator | Administration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="libs/bootstrap.min.css">
-        <link rel="stylesheet" href="libs/style.css">
         <script src="libs/jquery-3.1.1.min.js"></script>
     </head>
     <body>
-        <h1 class="text-center">Administrator console</h1>
+        <h1 class="text-center">Адміністрування</h1>
         <div class="container">
             <div class="row">
                 <div class ="form-group">
@@ -20,20 +16,16 @@ This is admin panel. From here you can access some advanced features
                           enctype="multipart/form-data"
                           method="post" 
                           action="/WebSimulator/uploadmodel">
-                        <input id="fileupload" 
-                               name="modelxml" 
-                               type="file" />
-                        <input type="submit" 
-                               value="submit" 
-                               id="upload" 
-                               class="btn-group btn-block"/>
+                        <fieldset>
+                            <input id="fileupload" name="modelxml" type="file" />
+                            <input id="upload" type="submit" value="Завантажити модель" class="btn"/>
+                        </fieldset>
                     </form>
+                    <!-- in development -->
                     <form id="liststudents" 
                           action="/WebSimulator/liststudents"
                           method="get">
-                        <input type="submit" 
-                               value="List of students" 
-                               id="list" />
+                        <input id="list" type="submit" value="Список студентів" class="btn" />
                     </form>
                 </div>
             </div>

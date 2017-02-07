@@ -1,5 +1,5 @@
 /*
- *
+ * AdministrationService.java
  *
  */
 package ua.kpi.atep.services;
@@ -9,12 +9,36 @@ import ua.kpi.atep.model.entity.Student;
 
 /**
  *
- * @author Home
+ * Actions of the administrator
+ * 
+ * @author Konstantin Kovalchuk
  */
 public interface AdministrationService {
     
-    AppModelState setAssigmnent(int variant, String login);
+    /**
+     * Initializes administrator account
+     * 
+     * @param account administrator account name
+     * @param password password
+     */
+    void initAdministration(String account, String password);
     
+    /**
+     * Set assignment
+     * 
+     * @param session current user session
+     * @param variant variant of the student
+     * @param login login of the student
+     * @return state of the operation
+     */
+    AppModelState setAssigmnent(UserSession session, int variant, String login);
+    
+    /**
+     * Creates the assignment
+     * @param session session of the user
+     * @param assigment assignment correspoing to the user
+     * @return state of operation
+     */
     AppModelState createAssignment(UserSession session, 
             Assignment assigment);
     

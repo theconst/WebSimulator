@@ -81,17 +81,14 @@ public class FrontController {
     @Value("${web.attr.message}")
     private String messageAttr;
 
-    @Value("${web.signup.message.userexists}")
-    private String userExistsMessage;
+    @Value("${web.signup.message.closemessage}")
+    private String closeWebSocketOrDoSimulation;
 
-    @Value("${web.login.message.invalidinfo}")
-    private String invalidInfoMessage;
+    @Value("${web.admin.account}")
+    private String adminLogin;
 
-    @Value("${web.home.message.timedout}")
-    private String timeOutMessage;
-
-    @Value("${web.home.message.unautorized}")
-    private String unatorizedMessage;
+    @Value("${web.admin.password}")
+    private String adminPassword;
 
     @Value("${web.param.login}")
     private String loginParam;
@@ -148,7 +145,7 @@ public class FrontController {
      * Initialize view resolver
      */
     @PostConstruct
-    private void initViewResolver() {
+    private void init() {
         //is initiazed on container initialization , no synchronization needed
         viewResolver = new EnumMap<>(AppModelState.class);
 
@@ -163,6 +160,9 @@ public class FrontController {
 
         viewResolver.put(
                 ASSIGNMENT_CREATION_SUCCESS, redirectTo(adminpanelPage));
+        
+        //initialize administration
+        administrationService.initAdministration(adminLogin, adminPassword);     
     }
 
     /**
@@ -253,12 +253,24 @@ public class FrontController {
         return resolveView(simulationStartResult);
     }
 
+    
+    //this method behaves awkwardly when user presses the save button too
+    //quickly
     @RequestMapping(value = "${web.action.history}")
     @ResponseBody
     public String getStory(HttpServletResponse response) {
+        String userActivity = simulationService.getUserActivity(userSession.getUser().getId());
+
+        //if hypothetically user does simulation for the first time and closes
+        //early
+        if (userActivity == null) {
+            
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            return closeWebSocketOrDoSimulation;
+        }
         response.setHeader(CONTENT_DISPOSITION_HEADER, ATTACHMENT);
         response.setContentType(simulationService.getUserActivityContentType());
-        return simulationService.getUserActivity(userSession.getUser().getId());
+        return userActivity;
     }
 
     @RequestMapping(value = "${web.action.uploadmodel}")
@@ -267,7 +279,7 @@ public class FrontController {
             HttpServletResponse response)
             throws IOException, SerializationException {
         Assignment assignment = assignmentSerializer.deserialize(
-                new InputStreamReader(file.getInputStream(), "UTF-8")); 
+                new InputStreamReader(file.getInputStream(), "UTF-8"));
         AppModelState result = administrationService.createAssignment(
                 userSession, assignment);
 
@@ -280,7 +292,7 @@ public class FrontController {
             @RequestParam("${web.param.variant}") int variant,
             @RequestParam("${web.param.username}") String login,
             HttpServletResponse response) {
-        if (administrationService.setAssigmnent(variant, login)
+        if (administrationService.setAssigmnent(userSession, variant, login)
                 == ASSIGNMENT_CREATION_SUCCESS) {
             response.setStatus(HttpServletResponse.SC_OK);
         } else {
@@ -341,5 +353,5 @@ public class FrontController {
     private String resolveView(AppModelState result, String def) {
         return viewResolver.getOrDefault(result, redirectTo(def));
     }
-
+    
 }

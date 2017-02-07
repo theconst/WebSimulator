@@ -19,15 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.kpi.atep.dao.AssignmentDAO;
 import ua.kpi.atep.dao.UserDAO;
 import ua.kpi.atep.model.entity.Assignment;
+import ua.kpi.atep.model.entity.EntityFactory;
 import ua.kpi.atep.model.entity.Permission;
 import ua.kpi.atep.model.entity.Student;
 import ua.kpi.atep.model.entity.User;
 
 import ua.kpi.atep.services.AdministrationService;
 import ua.kpi.atep.services.AppModelState;
+import ua.kpi.atep.services.PasswordHasher;
 import ua.kpi.atep.services.UserSession;
-import ua.kpi.atep.services.serialization.SerializationException;
-import ua.kpi.atep.services.serialization.Serializer;
 
 /**
  * Actions of the administrator
@@ -43,17 +43,36 @@ public class AdministrationServiceImpl implements AdministrationService {
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private EntityFactory entityFactory;
+
+    @Autowired
+    private PasswordHasher hasher;
+
     @Override
     @Transactional
-    public AppModelState setAssigmnent(int variant, String login) {
-        User user = userDAO.findByLogin(login);
-        if (isStudent(user)) {
-            Assignment assignment = assignmentDAO.find(variant);
+    public void initAdministration(String adminAccount, String adminPassword) {
+        //todo rethink as one service with register and login
+        User user = entityFactory.createUser(Permission.ADMIN);
+        user.setPassword(hasher.toHash(adminPassword));
+        user.setLogin(adminAccount);
+        userDAO.update(user);
+    }
 
-            if (assignment != null) {
-                user.setAssignment(assignment);
-                userDAO.update(user);
-                return AppModelState.STUDENT_ASSIGNMENT_UPDATE_SUCCESS;
+    @Override
+    @Transactional
+    public AppModelState setAssigmnent(UserSession session, int variant, 
+            String login) {
+        if (isAdmin(session.getUser())) {
+            User user = userDAO.findByLogin(login);
+            if (isStudent(user)) {
+                Assignment assignment = assignmentDAO.find(variant);
+
+                if (assignment != null) {
+                    user.setAssignment(assignment);
+                    userDAO.update(user);
+                    return AppModelState.STUDENT_ASSIGNMENT_UPDATE_SUCCESS;
+                }
             }
         }
         return AppModelState.STUDENT_ASSIGNMENT_UPDATE_FAILURE;
@@ -99,10 +118,17 @@ public class AdministrationServiceImpl implements AdministrationService {
     }
 
     private boolean isAdmin(User u) {
+        if (u == null) {
+            return false;
+        }
         return u.getPermission() == Permission.ADMIN;
     }
 
     private boolean isStudent(User u) {
+        if (u == null) {
+            return false;
+        }
         return u.getPermission() == Permission.STUDENT;
     }
+
 }
