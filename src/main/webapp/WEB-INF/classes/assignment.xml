@@ -58,42 +58,31 @@
           
           
           <inputs>
-            <input id="x1" name="input1" /> <!-- ������ ������ ����������� ���� -->
-            <input id="x3" name="input2" /> <!-- ������ �� 1-� ������ ���� -->
-            <input id="x6" name="input3" /> <!-- ������ �� 2-� ������ ���� -->
+            <input id="x1" name="input1" /> 
+            <input id="x3" name="input2" /> 
+            <input id="x6" name="input3" /> 
           </inputs>
           
           
           <outputs>
-            <output id="y3" name="param1" />  <!-- ����������� �� ������������� -->
-            <output id="y7" name="param2" />  <!-- ����������� ���� �� ���������� ��������� -->
-            <output id="y9" name="param3" />  <!-- ����������� ���� �� 1-� �������� -->
-            <output id="y11" name="param4" /> <!-- ����������� ���� ����� 2-� �������� -->
-            <output id="y13" name="param5" /> <!-- ����������� ���� �� 2-� �������� -->
-            <output id="y15" name="param6" /> <!-- ����������� ���� �� ������ �� ����� -->
+            <output id="y3" name="param1" /> 
+            <output id="y7" name="param2" />
+            <output id="y9" name="param3" />
+            <output id="y11" name="param4" />
+            <output id="y13" name="param5" />
+            <output id="y15" name="param6" />
           </outputs>
           
           <relationships>
-            <!-- y3 = w61 x1 + {������} -->
             <relationship input="x1" output="y3" function="w61" />
-            
-            <!-- y7 = w63 x1 + {������} -->
             <relationship input="x1" output="y7" function="w63" />
-            
-            <!-- y9 = w3 x1 + w5 x3 {������} -->
             <relationship input="x1" output="y9" function="w3" />
             <relationship input="x3" output="y9" function="w5" />
-            
-            <!-- y11 = w73 x1 + w77 x3 + {������} -->
             <relationship input="x1" output="y11" function="w73" />
             <relationship input="x3" output="y11" function="w77" />
-            
-            <!-- y13 = w11 x1 + w13 x3 + w15 x6 + {������} -->
             <relationship input="x1" output="y13" function="w11" />
             <relationship input="x3" output="y13" function="w13" />
             <relationship input="x6" output="y13" function="w15" />
-            
-            <!-- y15 = w21 x1 + w32 x3 + w35 x6 + {������} -->
             <relationship input="x1" output="y15" function="w21" />
             <relationship input="x3" output="y15" function="w23" />
             <relationship input="x6" output="y15" function="w25" />

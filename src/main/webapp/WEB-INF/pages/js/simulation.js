@@ -222,22 +222,28 @@ $(window).on("load", function () {
         userInputs["clear"] = true;
     });
 
-    $('#pause').click(function(event) {
+    $('#pause').click(function (event) {
         event.preventDefault();
         userInputs["pause"] = !userInputs["pause"];
     });
 
-    $('#finish-btn').click(function(event) {
+    $('#finish-btn').click(function (event) {
         event.preventDefault();
         userInputs["finish"] = true;
     });
-    
-    $('#sim-speed').on("change mousemove", function() {
-       userInputs["speed"] = $(this).val();
+
+    $('#sim-speed').on("change mousemove", function () {
+        userInputs["speed"] = $(this).val();
     });
     /************************************************************************/
 
     /* TODO: encapsulate loop as an object and perform callback init there */
+
+
+    //tricky bug, chart js didn't want to draw null chart without exception
+
+    var firstDrawn = false;
+
 
     /* Control loop of the UI */
     /* Controller interacts with ui and updates view */
@@ -268,6 +274,9 @@ $(window).on("load", function () {
                         appendRow({label: "T4", row: data["param4"]}).
                         appendRow({label: "T5", row: data["param5"]}).
                         appendRow({label: "T6", row: data["param6"]});
+                
+                //tricky fix, mark this as temporary solution
+                firstDrawn = true;
             };
         }
         if (inputs["clear"]) {
@@ -278,9 +287,10 @@ $(window).on("load", function () {
             dataSource.close();
             //! show history goes to the source callback
         }
-
         //update view
-        handle.update();
+        if (firstDrawn) {
+            handle.update();            //added to wait for first data before drawing
+        }
     }
     /*********************************************/
 
@@ -300,7 +310,7 @@ $(window).on("load", function () {
     socket.onclose = function (event) {
         console.log("closed, reason("
                 + event.eventCode + "," + event.reason + ")");
-        
+
         //temporary workaround
         $('#history-ref').show();
         window.clearInterval(loopHandle);
