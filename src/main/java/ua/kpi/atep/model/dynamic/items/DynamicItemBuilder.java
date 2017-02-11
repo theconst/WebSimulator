@@ -39,7 +39,7 @@ public class DynamicItemBuilder {
         if (result == null) {
             this.result = other;												//default behavior
         } else {
-            result = DynamicItemUtils.parallelSumConnection(result, other);
+            result = DynamicItems.parallelSumConnection(result, other);
         }
         return this;
     }
@@ -55,7 +55,7 @@ public class DynamicItemBuilder {
         if (result == null) {
             result = other; 													//default behavior
         } else {
-            result = DynamicItemUtils.sequentialConnection(result, other);
+            result = DynamicItems.sequentialConnection(result, other);
         }
         return this;
     }
@@ -66,7 +66,7 @@ public class DynamicItemBuilder {
      * @return
      */
     public DynamicItemBuilder addNegativeFeedBackLoop() {
-        result = DynamicItemUtils.negativeFeedbackConnection(result);
+        result = DynamicItems.negativeFeedbackConnection(result);
         return this;
     }
 

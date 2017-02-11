@@ -1,7 +1,7 @@
 package ua.kpi.atep.model.dynamic.items;
 
 //TODO use Tustin transform
-public class PIDController extends DynamicItem {
+class PIDController extends DynamicItem {
 
     private static final long serialVersionUID = 44L;
 
@@ -22,16 +22,48 @@ public class PIDController extends DynamicItem {
         this.differentialTime = differentialTime;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     @Override
     public double handleValue(double in) {
         integral += in * getSamplingTime();
         double derivative = (in - prev) / getSamplingTime();
-        double result = proportionalGain 
-                * (in + ((integralTime != 0.0) ? (integral / integralTime) : 0) 
-                    + derivative * differentialTime);
+        double result = proportionalGain
+                * (in + ((integralTime != 0.0) ? (integral / integralTime) : 0)
+                + derivative * differentialTime);
         prev = in;
 
         return result;
+    }
+
+    public double getProportionalGain() {
+        return proportionalGain;
+    }
+
+    public void setProportionalGain(double proportionalGain) {
+        this.proportionalGain = proportionalGain;
+    }
+
+    public double getDifferentialTime() {
+        return differentialTime;
+    }
+
+    public void setDifferentialTime(double differentialTime) {
+        this.differentialTime = differentialTime;
+    }
+
+    public double getIntegralTime() {
+        return integralTime;
+    }
+
+    public void setIntegralTime(double integralTime) {
+        this.integralTime = integralTime;
     }
 
 }

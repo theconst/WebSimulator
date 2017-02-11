@@ -7,8 +7,11 @@ package ua.kpi.atep.model.dynamic.items;
  *
  * @author Kostiantyn Kovalchuk
  */
-public class FirstOrderLag extends DynamicItem {
+class FirstOrderLag extends DynamicItem {
 
+    /*
+     *  If reference fields are ever added, modify the clone method! 
+     */
     private static final long serialVersionUID = 22L;
 
     /**
@@ -33,6 +36,14 @@ public class FirstOrderLag extends DynamicItem {
         this.gain = gain;
         this.timeConstant = timeConstant;
         this.prev = initialCondition;
+    }
+
+    /**
+     * @{inheritDoc}
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     /**

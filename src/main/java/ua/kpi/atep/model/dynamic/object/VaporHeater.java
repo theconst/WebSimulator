@@ -16,13 +16,13 @@ import static ua.kpi.atep.model.dynamic.object.VaporHeater.Outputs.indexOf;
 import static ua.kpi.atep.model.dynamic.object.VaporHeater.Inputs.indexOf;
 import ua.kpi.atep.model.dynamic.items.DynamicItem;
 import ua.kpi.atep.model.dynamic.items.DynamicItemFactory;
-import ua.kpi.atep.model.dynamic.items.DynamicItemUtils;
+import ua.kpi.atep.model.dynamic.items.DynamicItems;
 
 /**
  *
  * @author Home
  */
-public class VaporHeater extends DynamicModel {
+class VaporHeater extends DynamicModel {
     
     public static final long serialVersionUID = 129L;
 
@@ -155,32 +155,32 @@ public class VaporHeater extends DynamicModel {
 
         /* Creating the dynamic items of the */
         DynamicItemFactory factory = new DynamicItemFactory(sampling);
-        temp1 = DynamicItemUtils.sequentialConnection(
+        temp1 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(30, 100),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));
 
-        temp2 = DynamicItemUtils.sequentialConnection(
+        temp2 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(50, 50),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));
 
-        temp3 = DynamicItemUtils.sequentialConnection(
+        temp3 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(20, 200),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));
 
-        temp4 = DynamicItemUtils.sequentialConnection(
+        temp4 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(20, 200),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));
 
-        temp5 = DynamicItemUtils.sequentialConnection(
+        temp5 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(20, 200),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));
 
-        temp6 = DynamicItemUtils.sequentialConnection(
+        temp6 = DynamicItems.sequentialConnection(
                 factory.createFirstOrderLag(20, 200),
                 factory.createDelay(4),
                 factory.createMeasurmentNoise(1));

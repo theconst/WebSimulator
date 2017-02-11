@@ -14,8 +14,7 @@ import javax.websocket.EndpointConfig;
 
 /**
  *
- * Encoder relies only on the collections such as lists and maps, primitive
- * types and classes that are JsonValues
+ * Encodes values as Text message
  *
  * @author Konstantin Kovalchuk
  */

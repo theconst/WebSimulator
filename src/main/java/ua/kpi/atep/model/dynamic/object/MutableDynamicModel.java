@@ -10,7 +10,7 @@ import java.util.Arrays;
  *
  * @author Home
  */
-public class MutableDynamicModel extends DynamicModel {
+class MutableDynamicModel extends DynamicModel {
     
     public static final long serialVersionUID = 1297L;
 

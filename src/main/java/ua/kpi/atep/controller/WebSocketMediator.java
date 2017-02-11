@@ -14,9 +14,11 @@ import ua.kpi.atep.services.UserSession;
 /**
  * Incapsulates interaction between the websocket and http
  * 
- * Session controller and websocket endpoint interact via static method 
- * and controller chooses the right mediator to interact with
- *
+ * Session controller and websocket endpoint interact via static methods
+ * 
+ * Mediator creates new instance of itself and passes reference to both
+ * http and websocket sessions
+ * 
  * @author
  */
 public class WebSocketMediator {
@@ -113,7 +115,7 @@ public class WebSocketMediator {
     }
 
 
-    /* methods for accessing the ws */
+    /* methods acessor methods for webscoket */
     public static int getUserID(Session s) {
         return getMediator(s).getUserId();
     }

@@ -1,17 +1,17 @@
 package ua.kpi.atep.model.dynamic.items;
 
-//TODO ? implement interface dymamicItem and SampledDynamicItem (some items do not need sampling)
 
 import java.io.Serializable;
 
-//TODO ? extend the observable class to handle intermediate output in needed
 /**
- * Item of discrete dynamic system (immutable)
+ * Item of discrete dynamic system
  *
- *
+ * TODO: create prototype to mimic the behaviour of real item (real item
+ * is unchanged when it is used multiple times)
+ * 
  * @author Kostiantyn Kovalchuk
  */
-public abstract class DynamicItem implements Serializable {
+public abstract class DynamicItem implements Serializable, Cloneable {
     
     private static final String SAMPLING_GREATER_THAN_ZERO_MSG
             = "Samling time must be greater than zero";
@@ -24,7 +24,7 @@ public abstract class DynamicItem implements Serializable {
      * Sampling time - caller has to ensure it is the same for all dynamic items
      * in the system
      */
-    private double samplingTime;
+    protected double samplingTime;
 
     /**
      * was the model initialized ?
@@ -47,7 +47,6 @@ public abstract class DynamicItem implements Serializable {
         this.initialCondition = initialCondition;
     }
     
-    
     public DynamicItem(double samplingTime) {
         this(samplingTime, 0.0);
     }
@@ -55,10 +54,24 @@ public abstract class DynamicItem implements Serializable {
     /**
      * Default constructor
      * 
-     * ?? to implement serializeable interface
      */
     public DynamicItem() {
         this(DEFAULT_SAMPLING, 0.0);
+    }
+    
+    
+    /**
+     * Clone method is used to create copies of items
+     * 
+     * Dynamic items DO NOT HAVE references in them,
+     * so the returned copy is deep
+     * 
+     * @return deep copy of the object
+     * @throws CloneNotSupportedException 
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     /**
@@ -118,5 +131,44 @@ public abstract class DynamicItem implements Serializable {
     public void setInitialCondition(double initialCondition) {
         this.initialCondition = initialCondition;
     }
-
+    
+    
+    /**
+     * Returns completely new item with feedback connection
+     * 
+     * @param other
+     * @return 
+     */
+    public DynamicItem parallel(DynamicItem other) {
+        try {
+            return DynamicItems.parallelSumConnection(
+                    (DynamicItem) this.clone(), (DynamicItem) other.clone());
+        } catch (CloneNotSupportedException ex) {
+           throw new UnsupportedOperationException(ex);
+        } 
+    } 
+    
+    /**
+     * Returns completely new dynamic item thie feedbakcConnection
+     * 
+     * @param other
+     * @return 
+     */
+    public DynamicItem sequential(DynamicItem other) {
+        try {
+            return DynamicItems.sequentialConnection(
+                    (DynamicItem) this.clone(), (DynamicItem) other.clone());
+        } catch (CloneNotSupportedException ex) {
+            throw new UnsupportedOperationException(ex);
+        }
+    }
+    
+    public DynamicItem negativeFeedback() {
+        try {
+            return DynamicItems
+                    .negativeFeedbackConnection((DynamicItem) this.clone());
+        } catch (CloneNotSupportedException ex) {
+            throw new UnsupportedOperationException(ex);
+        } 
+    }
 }

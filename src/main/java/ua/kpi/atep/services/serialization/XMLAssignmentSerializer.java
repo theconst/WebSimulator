@@ -32,7 +32,7 @@ import static java.lang.Integer.parseInt;
  *
  * @author Home
  */
-@Service
+//@Service
 public class XMLAssignmentSerializer
         implements Serializer<Assignment, Reader, Writer> {
 

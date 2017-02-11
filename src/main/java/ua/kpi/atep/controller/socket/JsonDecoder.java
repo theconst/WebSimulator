@@ -11,7 +11,6 @@ import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-//TODO - implement custom encoder, which will handle the change of state
 /**
  * Decodes the input data from the user
  *

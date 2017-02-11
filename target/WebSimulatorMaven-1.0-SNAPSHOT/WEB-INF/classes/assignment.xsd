@@ -3,6 +3,9 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
     
   <!-- xml schema to validate the assignment -->  
+  <!-- please pay attention to the order in which item should go in valid 
+    document!
+    -->
   
   <xs:element name="lag">
     <xs:complexType>
@@ -61,7 +64,7 @@
       <xs:simpleContent>
         <xs:extension base="xs:string">
           <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:byte" name="initial" use="required"/>
+          <xs:attribute type="xs:float" name="initial" use="required"/>
           <xs:attribute type="xs:float" name="p" use="optional" default="1.0"/>
           <xs:attribute type="xs:float" name="i" use="optional" default="0.0"/>
           <xs:attribute type="xs:float" name="d" use="optional" default="0.0"/>
@@ -74,14 +77,14 @@
   <!-- A dynamic item is either a simple item or a complex connection of items -->
   <xs:complexType name="complexitem">
     <xs:sequence>
-        <xs:element ref="lag" minOccurs="0"/>
-        <xs:element ref="delay" minOccurs="0"/>
-        <xs:element ref="noise" minOccurs="0"/>
-        <xs:element ref="pid" minOccurs="0"/>
-        <xs:element ref="folpdn" minOccurs="0"/>
-        <xs:element ref="sequentialConnection" minOccurs="0" />
-        <xs:element ref="parallelConnection" minOccurs="0" />
-        <xs:element ref="negativeFeedback" minOccurs="0" />
+        <xs:element ref="pid" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="lag" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="delay" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="noise" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="folpdn" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="sequentialConnection" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="parallelConnection" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element ref="negativeFeedback" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
   </xs:complexType>
   
@@ -182,18 +185,16 @@
   
   <!-- assignment consists of ONE comment (optionally) and ONE model -->
   
-  <xs:element name="comment" type="xs:string"/>
-  
-  
+  <xs:element name="comment" type="xs:string" />
   
   <xs:element name="model">
     <xs:complexType>
-      <xs:all>
-        <xs:element ref="transferFunctions" />
-        <xs:element ref="inputs" />
-        <xs:element ref="outputs" />
-        <xs:element ref="relationships" />
-      </xs:all>
+      <xs:sequence>
+        <xs:element ref="transferFunctions" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="inputs" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="outputs" minOccurs="1" maxOccurs="1" />
+        <xs:element ref="relationships" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
       <xs:attribute type="xs:float" name="sampling" use="required" />
     </xs:complexType>
     
@@ -211,8 +212,6 @@
         <xs:field xpath="@id"/>
     </xs:key>
   
-  
-  
     <!-- define foreign keys -->
     <xs:keyref name="transferFunctionFK" refer="transferFunctionsKey">
         <xs:selector xpath="relationships" />
@@ -223,7 +222,6 @@
         <xs:selector xpath="relationships" />
         <xs:field xpath = "@input" />
     </xs:keyref>
-    
     
     <xs:keyref name="outputsFK" refer="outputsKey">
         <xs:selector xpath="relationships" />
@@ -236,18 +234,18 @@
   <!-- root element of the dociment -->
   <xs:element name="assignment">
     <xs:complexType>
-      <xs:sequence>
+      <xs:all>
         
         <!-- optional comment -->
         <xs:element ref="comment" minOccurs="0" maxOccurs="1" />
         
         <!-- dynamic model definition -->
         <xs:element ref="model" minOccurs="1" maxOccurs="1" />
-      </xs:sequence>
+      </xs:all>
       
       <!-- variant for the assignment -->
       <xs:attribute type="xs:byte" name="variant" use="required" />
     </xs:complexType>
   </xs:element>
-  
+   
 </xs:schema>

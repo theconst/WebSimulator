@@ -20,6 +20,10 @@ import ua.kpi.atep.services.SimulationService;
 
 import static ua.kpi.atep.controller.WebSocketMediator.getDynamicModel;
 import static ua.kpi.atep.controller.WebSocketMediator.getUserID;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.SAMPLING;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.SIZE;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.TICKS;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.TIMESPAN;
 
 import ua.kpi.atep.model.dynamic.object.DynamicModel;
 
@@ -40,28 +44,12 @@ import ua.kpi.atep.model.dynamic.object.DynamicModel;
  * @author Konstantin Kovalchuk
  */
 @ServerEndpoint(
-        /* statically coded, verbose workaround */
-        value = "/model",
+        value = WebSocketConstants.ENDPOINT,                   
         encoders = {JsonEncoder.class},
         decoders = {JsonDecoder.class},
         configurator = SimulationWebSocketConfigurator.class
 )
 public class SimulationWebSocket {
-
-    /**
-     * Size of memory chunk / user
-     * Note actual memory size may be twice that larger
-     */
-    private static final int SIZE = 3145728;
-    
-    /*
-     * Names of additional parameters to track (besides model parameters
-     */
-    public static final String TICKS = "ticks";
-
-    public static final String TIMESPAN = "timespan";
-
-    public static final String SAMPLING = "sampling";
 
     /**
      * Id of the user
@@ -199,7 +187,7 @@ public class SimulationWebSocket {
     @OnError
     public void onError(Throwable error) {
         Logger.getLogger(SimulationWebSocket.class.getName())
-                .log(Level.SEVERE, null, error);
+                .log(Level.SEVERE, "Error during execution", error);
     }
 
     private double getDouble(JsonObject ob, String name) {
@@ -285,7 +273,7 @@ public class SimulationWebSocket {
     private void doSimulationStep() {
 
         /* calculate length of the output */
-        int len = (int) (timespan / sampling) + 1;
+        int len = (int) (Math.ceil(timespan / sampling) + 0.1);
 
         /* allocate memory */
         for (int i = 0; i < processVariables.length; ++i) {
@@ -334,6 +322,8 @@ public class SimulationWebSocket {
      * @return newly allocated array or the same array
      */
     private double[] allocate(double[] array, int size) {
-        return (array.length >= size) ? array : new double[size];
+        
+        //strict equality, or else more advanced strategy
+        return (array.length == size) ? array : new double[size];
     }
 }

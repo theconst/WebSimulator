@@ -1,5 +1,7 @@
 ua\kpi\atep\model\dynamic\items\PIDController.class
+ua\kpi\atep\services\serialization\assignment\Token.class
 ua\kpi\atep\controller\WebSocketMediator.class
+ua\kpi\atep\services\serialization\GenericXMLAssignmentSerializer.class
 ua\kpi\atep\model\dynamic\items\DynamicItemUtils$2.class
 ua\kpi\atep\model\dynamic\object\VaporHeater.class
 ua\kpi\atep\services\impl\AdministrationServiceImpl.class
@@ -12,8 +14,10 @@ ua\kpi\atep\dao\ModellingDataDAO.class
 ua\kpi\atep\services\impl\SimulationServiceImpl.class
 ua\kpi\atep\dao\hibernate\HibernateModellingDataDAO.class
 ua\kpi\atep\controller\FrontController.class
+ua\kpi\atep\controller\socket\WebSocketConstants.class
 ua\kpi\atep\services\impl\RegisterServiceImpl.class
 ua\kpi\atep\model\dynamic\items\Delay.class
+ua\kpi\atep\services\serialization\assignment\Tags.class
 ua\kpi\atep\dao\UserDAO.class
 ua\kpi\atep\services\UserSession.class
 ua\kpi\atep\model\entity\Assignment.class
@@ -28,6 +32,8 @@ ua\kpi\atep\model\dynamic\items\DynamicItemFactory.class
 ua\kpi\atep\model\entity\Admin.class
 ua\kpi\atep\model\entity\EntityFactory.class
 ua\kpi\atep\model\dynamic\items\AbstractDynamicItemFactory.class
+ua\kpi\atep\services\serialization\assignment\AssignmentHandler.class
+ua\kpi\atep\services\serialization\assignment\AssignmentHandler$1.class
 ua\kpi\atep\services\SimulationService.class
 ua\kpi\atep\services\impl\UserSessionImpl.class
 ua\kpi\atep\services\serialization\XMLAssignmentSerializer.class
@@ -43,6 +49,7 @@ ua\kpi\atep\services\impl\LoginServiceImpl.class
 ua\kpi\atep\services\serialization\JSONStudentListSerializer$StudentSerilizableProps.class
 ua\kpi\atep\model\entity\Permission.class
 ua\kpi\atep\dao\hibernate\HibernateAssignmentDAO.class
+ua\kpi\atep\services\serialization\assignment\TagAttributes.class
 ua\kpi\atep\model\entity\Student.class
 ua\kpi\atep\services\serialization\JSONStudentListSerializer.class
 ua\kpi\atep\model\dynamic\object\VaporHeater$Inputs.class
@@ -51,6 +58,7 @@ ua\kpi\atep\services\ValidationService.class
 ua\kpi\atep\controller\socket\SimulationWebSocket.class
 ua\kpi\atep\model\dynamic\object\DynamicModel.class
 ua\kpi\atep\model\dynamic\object\VaporHeater$Parameters.class
+ua\kpi\atep\services\serialization\assignment\Operation.class
 ua\kpi\atep\services\LoginService.class
 ua\kpi\atep\model\dynamic\items\DynamicItemUtils$3.class
 ua\kpi\atep\model\dynamic\object\VaporHeater$Outputs.class
@@ -60,6 +68,7 @@ ua\kpi\atep\dao\hibernate\HibernateUserDAO.class
 ua\kpi\atep\model\entity\User.class
 ua\kpi\atep\controller\socket\JsonEncoder.class
 ua\kpi\atep\ztrash\DynamicModelInput.class
+ua\kpi\atep\services\serialization\assignment\Operand.class
 ua\kpi\atep\services\AppModelState.class
 ua\kpi\atep\model\entity\ModellingData.class
 ua\kpi\atep\services\AdministrationService.class

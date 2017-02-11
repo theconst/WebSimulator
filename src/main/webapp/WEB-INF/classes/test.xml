@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assignment variant="0">
+    <comment>Test</comment>
+        
+    <model sampling="0.1">
+        <transferFunctions>
+<!--            <transferFunction id="sequential1">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="sequential2">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="sequential3">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="sequential4">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="sequential5">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="sequential6">
+                <parallelConnection>
+                    <lag id="parallelP" initial="0.0" gain="1.0" timeConstant="3000" />  
+                    <sequentialConnection>
+                         Order is enfoced 
+                        <lag id="sequentialLag" initial="1.0" gain="5.0" timeConstant="10.0" />
+                        <delay id="sequentialDelay" initial="1.0" time="10.0" />
+                    </sequentialConnection> 
+                </parallelConnection>
+            </transferFunction> --> 
+            
+            <transferFunction id="controlSystem">
+                <negativeFeedback>
+                    <pid id="pid" initial="1.0" p="3.0" i="24.0" />
+                    <sequentialConnection>
+                        <lag id="seq-lag" initial="0.0" gain="0.7" timeConstant="24" />
+                        <delay id="delay" initial="0.0" time="8.0" />
+                    </sequentialConnection>
+                </negativeFeedback>
+            </transferFunction>
+            
+            <transferFunction id="parallel">
+                <parallelConnection>
+                    <lag id="parallelLag" initial="5.0" gain="5.0" timeConstant="100.0" />
+                    <lag id="parrallelLag2" initial="1.0" gain="2.0" timeConstant="1000.0" />
+                    <lag id="parrallelLag3" initial="3.0" gain="5.0" timeConstant="3000.0" />
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="noise">
+                <!-- do not specify initial for noise -->
+                <parallelConnection>
+                    <noise id="noiseNoise" initial="0.0" variance="1.0" />
+                    <noise id="anotherNoise" initial="0.0" variance="2.0" />
+                </parallelConnection>
+            </transferFunction>
+            
+            <transferFunction id="typical1">
+                <folpdn id="typicalfolpdn" initial="0.0" gain="1.511" timeConstant="142" delay="24" variance="0.05" />
+            </transferFunction>
+            
+            <transferFunction id="typical2">
+                <lag id="typicallal" initial="0.0" gain="1.511" timeConstant="142" />
+            </transferFunction>
+           
+        </transferFunctions>
+          
+          
+        <inputs>
+            <input id="x1" name="input1" /> 
+            <input id="x2" name="input2" /> 
+            <input id="x3" name="input3" /> 
+        </inputs>  
+        
+        <outputs>
+            <output id="y1" name="param1" /> 
+            <output id="y2" name="param2" />
+            <output id="y3" name="param3" />
+            <output id="y4" name="param4" />
+            <output id="y5" name="param5" />
+            <output id="y6" name="param6" />
+        </outputs>
+          
+        <relationships>
+            <relationship input="x1" output="y1" function="controlSystem" />
+            <relationship input="x2" output="y2" function="parallel" />
+            <relationship input="x3" output="y3" function="noise" />
+            <relationship input="x1" output="y4" function="typical1" />
+            <relationship input="x2" output="y5" function="typical2" />
+            <relationship input="x3" output="y6" function="sequential" />
+        </relationships>
+    </model>
+</assignment>

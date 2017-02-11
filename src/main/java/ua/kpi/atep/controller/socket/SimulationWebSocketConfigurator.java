@@ -11,7 +11,7 @@ import static ua.kpi.atep.controller.WebSocketMediator.interactWithWebSocketConf
 
 /**
  *
- * @author Home
+ * @author
  */
 public class SimulationWebSocketConfigurator extends SpringConfigurator {
 

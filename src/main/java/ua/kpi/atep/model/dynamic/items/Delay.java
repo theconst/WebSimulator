@@ -5,7 +5,7 @@ package ua.kpi.atep.model.dynamic.items;
  *
  * @author Kostiantyn Kovalchuk
  */
-public class Delay extends DynamicItem {
+class Delay extends DynamicItem {
     
     private static final long serialVersionUID = 11L;
 
@@ -50,6 +50,14 @@ public class Delay extends DynamicItem {
         this.ticks = 0;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+    
     /**
      * {@inheritDoc}
      */

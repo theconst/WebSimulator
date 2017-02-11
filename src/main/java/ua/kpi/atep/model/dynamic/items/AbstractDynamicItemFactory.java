@@ -1,20 +1,20 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * AbstractDynamicItemFactory.java
  */
 package ua.kpi.atep.model.dynamic.items;
 
 /**
- *
- * @author Home
+ * Factory for creating dynamic items
+ * 
+ * @author Konstantin Kovalchuk
  */
 public interface AbstractDynamicItemFactory {
     
-    public DynamicItem createFirstOrderLag(double gain, double timeConstant);
+    DynamicItem createFirstOrderLag(double gain, double timeConstant);
     
-    public DynamicItem createDelay(double time);
+    DynamicItem createDelay(double time);
     
-    public DynamicItem createMeasurmentNoise(double standardDeviation);
+    DynamicItem createMeasurmentNoise(double standardDeviation);
     
+    DynamicItem createPID(double p, double i, double d);
 }

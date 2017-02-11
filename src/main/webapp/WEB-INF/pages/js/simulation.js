@@ -58,22 +58,27 @@ $(window).on("load", function () {
     //abstract handle for chart.js
     function ChartHandle(chart, coloringStrategy) {
         this.chart = chart;
-        //convinience reference
+
+        //todo: expose only args and rows 
+        //hide data and datasets
+        //??? getters and setters
+        //expose chart and datasets
         this.data = this.chart.data;
         this.datasets = this.data.datasets;
         //arg represents array of not yet rendered data
-        this.arg = []; //set arg to null
-
         //array of rows which will be referenced by original data
+        this.arg = []; //set arg to null
         this.rows = {};
 
         this.fill = false;
         this.pointRadius = 0;
 
         this.coloring = coloringStrategy;
-        //private method for updating datasets
-        //adds or updates current data set
-        this.appendData = function (points, label) {
+    }
+
+    ChartHandle.prototype = {
+
+        appendData: function (points, label) {
             var hasData = this.rows.hasOwnProperty(label);
             var row = hasData ? this.rows[label] : [];
 
@@ -91,14 +96,14 @@ $(window).on("load", function () {
                     hidden: false
                 });
             }
-        };
-    }
+        },
 
-
-    ChartHandle.prototype = {
+        isEmpty: function () {
+            return this.datasets.length === 0;
+        },
 
         //get row or deep copy if needed
-        getRow(label, deep) {
+        getRow: function (label, deep) {
             return (arguments.length === 1) ? this.rows[label] : deep ?
                     this.rows[label].slice() : this.rows[label];
         },
@@ -135,7 +140,10 @@ $(window).on("load", function () {
 
         //simply wraps the internal behaviour
         update: function () {
-            return this.chart.update();
+            //do not update empty canvas (triggers exception in Chart.js)
+            if (!this.isEmpty()) {
+                return this.chart.update();
+            }
         },
 
         //clears the table
@@ -242,42 +250,43 @@ $(window).on("load", function () {
 
     //tricky bug, chart js didn't want to draw null chart without exception
 
-    var firstDrawn = false;
-
+//    var firstDrawn = false;
 
     /* Control loop of the UI */
     /* Controller interacts with ui and updates view */
     //acts as data source has send function to query messages
-    function loop(inputs, handle, dataSource) {
+    function loop(inputs, handle, dataSource) {    
+        //process text message from data source
+        function processTextMessage(message) {
+            var data = JSON.parse(message.data);
+//                console.log("Data:" + data);
+            handle.appendArgument(data["ticks"]).
+                    appendRow({label: "T1", row: data["param1"]}).
+                    appendRow({label: "T2", row: data["param2"]}).
+                    appendRow({label: "T3", row: data["param3"]}).
+                    appendRow({label: "T4", row: data["param4"]}).
+                    appendRow({label: "T5", row: data["param5"]}).
+                    appendRow({label: "T6", row: data["param6"]});
+        }
+
         //read inputs
         if (!inputs["pause"]) {
             //generate message
+            //
+            var sampling = inputs.sampling;
+            var speed = inputs.speed;
+            
             var message = JSON.stringify({
                 "input1": inputs["valve-1"],
                 "input2": inputs["valve-2"],
                 "input3": inputs["valve-3"],
-                "sampling": inputs.sampling,
-                "timespan": Math.ceil(inputs.speed * inputs.sampling)
+                "sampling": sampling,
+                "timespan": Math.ceil(speed * sampling)
             });
-
             //setup dataSource according to WS interface
             dataSource.send(message);
-
             //set callback on message completion
-            dataSource.onmessage = function (message) {
-                var data = JSON.parse(message.data);
-//                console.log("Data:" + data);
-                handle.appendArgument(data["ticks"]).
-                        appendRow({label: "T1", row: data["param1"]}).
-                        appendRow({label: "T2", row: data["param2"]}).
-                        appendRow({label: "T3", row: data["param3"]}).
-                        appendRow({label: "T4", row: data["param4"]}).
-                        appendRow({label: "T5", row: data["param5"]}).
-                        appendRow({label: "T6", row: data["param6"]});
-                
-                //tricky fix, mark this as temporary solution
-                firstDrawn = true;
-            };
+            dataSource.onmessage = processTextMessage;
         }
         if (inputs["clear"]) {
             handle.clear();
@@ -287,21 +296,29 @@ $(window).on("load", function () {
             dataSource.close();
             //! show history goes to the source callback
         }
-        //update view
-        if (firstDrawn) {
-            handle.update();            //added to wait for first data before drawing
-        }
+        //update view       --- update view on each frame
+        handle.update();
     }
     /*********************************************/
 
     /* logic and messaging */
     var URL = "ws://localhost:8084/WebSimulator/model";
-    var socket = new WebSocket(URL);
-
-    //global var - in order not to put it to WS / wrap it for the sake of one var
-    var loopHandle;
-
+   
     /* Establishing the control loop based on connection with server */
+    //global var - in order not to put it to WS / wrap it for the sake of one var
+    var socket = new WebSocket(URL);
+    var loopHandle;
+    
+     /* configurator of the control loop */
+    function setUpLoop() {
+        return window.setInterval(function () {
+            //user inputs acts as structure that stores state
+            //handle is view
+            //socket is datasource
+            loop.apply(null, [userInputs, chartHandle, socket]);
+        }, userInputs.sampling * 1000);
+    }  
+    
     socket.onopen = function () {
         console.log("connected ");
         loopHandle = setUpLoop();
@@ -315,15 +332,4 @@ $(window).on("load", function () {
         $('#history-ref').show();
         window.clearInterval(loopHandle);
     };
-
-    /* configurator of the control loop */
-    function setUpLoop() {
-        return window.setInterval(function () {
-            //user inputs acts as structure that stores state
-            //handle is view
-            //socket is datasource
-            loop.apply(null, [userInputs, chartHandle, socket]);
-        }, userInputs.sampling * 1000);
-    }
-
 });
