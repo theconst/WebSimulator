@@ -15,15 +15,17 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.MODEL;
+import static ua.kpi.atep.controller.socket.WebSocketConstants.STUDENT_ID;
 
 import ua.kpi.atep.services.*;
 
-import static ua.kpi.atep.controller.WebSocketMediator.interactWithHttp;
 import ua.kpi.atep.model.entity.Assignment;
 import ua.kpi.atep.model.entity.Student;
 import static ua.kpi.atep.services.AppModelState.ADMIN_LOGIN;
@@ -160,9 +162,9 @@ public class FrontController {
 
         viewResolver.put(
                 ASSIGNMENT_CREATION_SUCCESS, redirectTo(adminpanelPage));
-        
+
         //initialize administration
-        administrationService.initAdministration(adminLogin, adminPassword);     
+        administrationService.initAdministration(adminLogin, adminPassword);
     }
 
     /**
@@ -243,17 +245,18 @@ public class FrontController {
                 = simulationService.initSimulation(userSession);
 
         /* 
-         * the simplest workaround to pass attr's 
-         * is to put attributes on session 
+         * Pass required attributes to session
          */
         if (simulationStartResult == SIMULATION_START) {
-            interactWithHttp(request, userSession);
+            HttpSession session = request.getSession(true);
+            session.setAttribute(STUDENT_ID, userSession.getUser().getId());
+            session.setAttribute(MODEL, 
+                    userSession.getUser().getAssignment().getModel());
         }
 
         return resolveView(simulationStartResult);
     }
 
-    
     //this method behaves awkwardly when user presses the save button too
     //quickly
     @RequestMapping(value = "${web.action.history}")
@@ -264,7 +267,7 @@ public class FrontController {
         //if hypothetically user does simulation for the first time and closes
         //early
         if (userActivity == null) {
-            
+
             response.setStatus(HttpServletResponse.SC_ACCEPTED);
             return closeWebSocketOrDoSimulation;
         }
@@ -278,12 +281,13 @@ public class FrontController {
             @RequestParam("${web.param.modelfile}") MultipartFile file,
             HttpServletResponse response)
             throws IOException, SerializationException {
-        Assignment assignment = assignmentSerializer.deserialize(
-                new InputStreamReader(file.getInputStream(), "UTF-8"));
-        AppModelState result = administrationService.createAssignment(
-                userSession, assignment);
+        try (Reader xml = new InputStreamReader(file.getInputStream(), "UTF-8")) {
+            Assignment assignment = assignmentSerializer.deserialize(xml);
+            AppModelState result = administrationService.createAssignment(
+                    userSession, assignment);
 
-        return resolveView(result);
+            return resolveView(result);
+        }
     }
 
     @RequestMapping(value = "${web.action.assignvariant}")
@@ -291,7 +295,8 @@ public class FrontController {
     public void assignVariant(
             @RequestParam("${web.param.variant}") int variant,
             @RequestParam("${web.param.username}") String login,
-            HttpServletResponse response) {
+            HttpServletResponse response
+    ) {
         if (administrationService.setAssigmnent(userSession, variant, login)
                 == ASSIGNMENT_CREATION_SUCCESS) {
             response.setStatus(HttpServletResponse.SC_OK);
@@ -317,7 +322,8 @@ public class FrontController {
      * @return error page
      */
     @ExceptionHandler(Exception.class)
-    public String handleError(Exception ex) {
+    public String handleError(Exception ex
+    ) {
         Logger.getLogger(FrontController.class.getName(), ex.getMessage());
 
         return redirectTo(errorPage);
@@ -353,5 +359,5 @@ public class FrontController {
     private String resolveView(AppModelState result, String def) {
         return viewResolver.getOrDefault(result, redirectTo(def));
     }
-    
+
 }

@@ -1,18 +1,18 @@
 <?xml version="1.0" ?>
 <assignment variant="0">
-        <comment>Variant1</comment>
+    <comment>Variant1</comment>
         
-        <model sampling="0.1">
-          <transferFunctions>
+    <model sampling="0.1">
+        <transferFunctions>
             
             <!-- -->
             
             <transferFunction id="w3"> <!-- gain="-0.0021Ni+9.44" timeConstant="-0.25Ni+325" delay="-0.338Ni+238" -->
-               <folpdn id="w3folpdn" initial="0.0" gain="8.81" timeConstant="250" delay="136.6" variance="0.3" />
+                <folpdn id="w3folpdn" initial="0.0" gain="8.81" timeConstant="250" delay="136.6" variance="0.3" />
             </transferFunction>
             
             <transferFunction id= "w5"> <!-- gain="-0.006Ni+0.384" timeConstant="0.09Ni-12" delay="-0.00875Ni+5.125" -->
-               <folpdn id="w5folpdn" initial="0.0" gain="-1.416" timeConstant="15" delay="2.5" variance="0.09" />
+                <folpdn id="w5folpdn" initial="0.0" gain="-1.416" timeConstant="15" delay="2.5" variance="0.09" />
             </transferFunction>
             
             <transferFunction id="w11"> <!-- gain="-0.0313Ni+15.63" timeConstant="-1.4Ni+700" delay="-0.45Ni+225" -->
@@ -48,32 +48,31 @@
             </transferFunction>
             
             <transferFunction id="w73"> <!-- gain="-0.00013Ni+1.6" timeConstant="-0.47Ni+260" delay="-0.207Ni+130" -->
-                 <folpdn id="w73folpdn" initial="0.0" gain="1.561" timeConstant="119" delay="67.9" variance="0.05" />
+                <folpdn id="w73folpdn" initial="0.0" gain="1.561" timeConstant="119" delay="67.9" variance="0.05" />
             </transferFunction>
             
             <transferFunction id="w77"> <!-- gain="-0.00113Ni+1.55" timeConstant="-0.22Ni+208" delay="-0.04Ni+36" -->
-                 <folpdn id="w77folpdn" initial="0.0" gain="1.511" timeConstant="142" delay="24" variance="0.05" />
+                <folpdn id="w77folpdn" initial="0.0" gain="1.511" timeConstant="142" delay="24" variance="0.05" />
             </transferFunction>
-          </transferFunctions>
+        </transferFunctions>
           
           
-          <inputs>
-            <input id="x1" name="input1" /> 
-            <input id="x3" name="input2" /> 
-            <input id="x6" name="input3" /> 
-          </inputs>
+        <inputs>
+            <input id="x1" name="input1" min="10" max="100" initial="50" /> 
+            <input id="x3" name="input2" min="10" max="70" inital="52" /> 
+            <input id="x6" name="input3" min="10" max="98" initial="53" /> 
+        </inputs>
           
-          
-          <outputs>
+        <outputs>
             <output id="y3" name="param1" /> 
             <output id="y7" name="param2" />
             <output id="y9" name="param3" />
             <output id="y11" name="param4" />
             <output id="y13" name="param5" />
             <output id="y15" name="param6" />
-          </outputs>
+        </outputs>
           
-          <relationships>
+        <relationships>
             <relationship input="x1" output="y3" function="w61" />
             <relationship input="x1" output="y7" function="w63" />
             <relationship input="x1" output="y9" function="w3" />
@@ -86,6 +85,6 @@
             <relationship input="x1" output="y15" function="w21" />
             <relationship input="x3" output="y15" function="w23" />
             <relationship input="x6" output="y15" function="w25" />
-          </relationships>
-        </model>
+        </relationships>
+    </model>
 </assignment>

@@ -6,16 +6,12 @@ package ua.kpi.atep.services.serialization.assignment;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
+import java.util.logging.*;
+import org.xml.sax.*;
 import org.xml.sax.helpers.*;
-import ua.kpi.atep.model.dynamic.items.DynamicItem;
-import ua.kpi.atep.model.dynamic.items.DynamicItemFactory;
-import ua.kpi.atep.model.dynamic.items.DynamicItems;
-import ua.kpi.atep.model.dynamic.object.DynamicModel;
+import ua.kpi.atep.model.dynamic.items.*;
+
+import ua.kpi.atep.model.dynamic.object.*;
 import ua.kpi.atep.model.entity.Assignment;
 
 /**
@@ -25,13 +21,18 @@ import ua.kpi.atep.model.entity.Assignment;
  *
  * Parser will parse virtually anything, so validation is nesessary before
  * proceeding
+ * 
+ * //TODO: refactor this to multiple handlers:
+ *  1. TransferFunctionHandler: getTransferFunctions => Map<String, DynamicItem>
+ *  2. InputHandler: getNaming => Map<String, String>, getInput => Input
+ *  3. OutputHandler 
  *
  * @author Konstantin Kovalchuk
  */
 public class AssignmentHandler extends DefaultHandler {
 
-    private static final Logger log
-            = Logger.getLogger(AssignmentHandler.class.getName());
+//    private static final Logger log
+//            = Logger.getLogger(AssignmentHandler.class.getName());
 
     private static final String TAG_NOT_DEFINED = "Tag not defined";
 
@@ -54,6 +55,78 @@ public class AssignmentHandler extends DefaultHandler {
      * Comment of the assignment
      */
     private StringBuilder comment = new StringBuilder();
+    
+    /**
+     * input names
+     */
+    private List<String> inputNames = new LinkedList<>();
+    
+    
+    /**
+     * output names
+     */
+    private List<String> outputNames = new LinkedList<>();
+
+    /**
+     * Keep track of minimum values of inputs
+     */
+    private List<Double> mins = new LinkedList<>();
+    
+    /**
+     * Keep track of maximum values of inputs
+     */
+    private List<Double> maxs = new LinkedList<>();
+    
+    /**
+     * Keep track of initial values of inputs
+     */
+    private List<Double> initialInputs = new LinkedList<>();
+    
+    
+    /**
+     * Inputs of the model
+     */
+    private Input modelInput;
+    
+    /**
+     * High alarms for outputs
+     */
+    private List<Double> alarmHis = new LinkedList<>();
+    
+    /**
+     * Low alarms for inputs
+     */
+    private List<Double> alarmLows = new LinkedList<>();
+    
+    /**
+     * Critical alarms for outputs
+     */
+    private List<Double> alarmHiCriticals = new LinkedList<>();
+    
+    /**
+     * Low Alarms for ouputs
+     */
+    private List<Double> alarmLowCriticals = new LinkedList<>();
+
+    /**
+     * Initial values for outputs
+     */
+    private List<Double> initialOutputs = new LinkedList<>();
+    
+    /**
+     * Outputs of the model
+     */
+    private Output modelOutput;
+
+    /**
+     * id => name
+     */
+    private Map<String, String> inputs = new HashMap<>();
+
+    /**
+     * id => name
+     */
+    private Map<String, String> outputs = new HashMap<>();
 
     /**
      * Model associated to the assignment
@@ -64,21 +137,11 @@ public class AssignmentHandler extends DefaultHandler {
     private DynamicItemFactory itemFactory;
 
     /**
-     * Inputs of the model
-     */
-    private Map<String, String> inputs = new HashMap();
-
-    /**
-     * Outputs of the model
-     */
-    private Map<String, String> outputs = new HashMap();
-
-    /**
      * Transfer functions of the model
      */
     private Map<String, DynamicItem> transferFunctions = new HashMap();
 
-    /* contains the value of the current processed element */
+    /* contains the computeValue of the current processed element */
     private Tags current;
 
     /* Keep track of current transfer function */
@@ -135,12 +198,12 @@ public class AssignmentHandler extends DefaultHandler {
             case SEQUENTIALCONNECTION:
             case PARALLELCONNECTION:
             case NEGATIVEFEEDBACK:
+                //be aware of ommited break
                 stack.push(new Operation(current));
                 break;
             /* ************************************* */
-
- /* Push operand onto the stack */
-            case DELAY:
+     
+            case DELAY:    // Push operand onto the stack
             case LAG:
             case NOISE:
             case PID:
@@ -148,19 +211,43 @@ public class AssignmentHandler extends DefaultHandler {
                 stack.push(new Operand(createItem(current, vals)));
                 break;
             case INPUTS:
-                //do nothing, used for marking
+                //do nothing
                 break;
+                
+            /* Add attributes to inputs */
             case INPUT:
-                inputs.put(vals.get(TagAttributes.ID), vals.get(TagAttributes.NAME));
+                String inputName = vals.get(TagAttributes.NAME);
+                
+                inputNames.add(inputName);
+                inputs.put(vals.get(TagAttributes.ID), inputName);
+                initialInputs.add(parseDouble(vals.get(TagAttributes.INITIAL)));
+                maxs.add(parseDouble(vals.get(TagAttributes.MAX)));
+                mins.add(parseDouble(vals.get(TagAttributes.MIN)));
                 break;
             case OUTPUTS:
-                //do nothing, use just for marking
+                //do nothing
                 break;
+                
+            /*
+             * Add attributes to outpur
+             */
             case OUTPUT:
-                outputs.put(vals.get(TagAttributes.ID), vals.get(TagAttributes.NAME));
+                String outputName = vals.get(TagAttributes.NAME);
+                
+                outputNames.add(outputName);
+                outputs.put(vals.get(TagAttributes.ID), outputName);
+                
+                /* default value of output is zero */
+                initialOutputs.add(getOrZero(vals, TagAttributes.INITIAL));
+                alarmHis.add(parseDouble(vals.get(TagAttributes.ALARMHI)));
+                alarmLows.add(parseDouble(vals.get(TagAttributes.ALARMLOW)));
+                alarmHiCriticals.add(parseDouble(
+                        vals.get(TagAttributes.ALARMHICRITICAL)));
+                alarmLowCriticals.add(parseDouble(
+                        vals.get(TagAttributes.ALARMLOWCRITICAL)));
                 break;
             case RELATIONSHIPS:
-                model = createModel(inputs.values(), outputs.values());
+                model = createModel(modelInput, modelOutput);
                 break;
             case RELATIONSHIP:
                 model = addRelationship(model, vals, transferFunctions,
@@ -191,7 +278,8 @@ public class AssignmentHandler extends DefaultHandler {
         switch (current) {
             /* transfer function is used as bottom marker */
             case TRANSFERFUNCTION:
-                /* pop value off the stack and assign to currently process transfer function */
+                /* pop computeValue off the stack and assign
+                   to currently process transfer function */
                 Token result = stack.pop();
 
                 if (result.isOperation()) {
@@ -221,6 +309,20 @@ public class AssignmentHandler extends DefaultHandler {
 
                 /* push result back as new expression */
                 stack.push(new Operand(operationResult));
+                break;
+            case INPUTS:
+                modelInput = new Input(toStringArray(inputNames), 
+                        toDoubleArray(initialInputs));
+                modelInput.setMax(toDoubleArray(maxs));
+                modelInput.setMin(toDoubleArray(mins));
+                break;
+            case OUTPUTS:
+                modelOutput = new Output(toStringArray(outputNames),
+                    toDoubleArray(initialOutputs));
+                modelOutput.setAlarmHi(toDoubleArray(alarmHis));
+                modelOutput.setAlarmLow(toDoubleArray(alarmLows));
+                modelOutput.setAlarmHiCritical(toDoubleArray(alarmHiCriticals));
+                modelOutput.setAlarmLowCritical(toDoubleArray(alarmLowCriticals));
                 break;
             default:
             //do nothing for other items
@@ -256,10 +358,9 @@ public class AssignmentHandler extends DefaultHandler {
         String inputId = values.get(TagAttributes.INPUT);
         String outputId = values.get(TagAttributes.OUTPUT);
 
-        model.setTransferFunction(
+        model.setTransferFunction(inputs.get(inputId),
                 transferFunctions.get(functionId),
-                model.inputToIndex(inputs.get(inputId)),
-                model.outputToIndex(outputs.get(outputId)));
+                outputs.get(outputId));
 
         return model;
     }
@@ -285,18 +386,9 @@ public class AssignmentHandler extends DefaultHandler {
      * @param outputs model outputs
      * @return resulting model
      */
-    private DynamicModel createModel(Collection<String> inputs,
-            Collection<String> outputs) {
-
-        /* initialize model */
-        int inputsCount = inputs.size();
-        int outputsCount = outputs.size();
-        DynamicModel result = DynamicModel.newInstance(inputsCount,
-                outputsCount);
-        result.setInputs(inputs.toArray(new String[inputsCount]));
-        result.setOutputs(outputs.toArray(new String[outputsCount]));
-        result.setParameters(new String[0]);
-
+    private DynamicModel createModel(Input modelInput, Output modelOutput) {
+        DynamicModel result = DynamicModel.newInstance(modelInput,
+                modelOutput);
         return result;
     }
 
@@ -308,7 +400,7 @@ public class AssignmentHandler extends DefaultHandler {
      * @return resulting dynamic item
      * @throws SAXException if illegal arguments are passed
      */
-    private DynamicItem connect(Tags connectionType, DynamicItem... items) 
+    private DynamicItem connect(Tags connectionType, DynamicItem... items)
             throws SAXException {
         switch (connectionType) {
             case SEQUENTIALCONNECTION:
@@ -317,7 +409,8 @@ public class AssignmentHandler extends DefaultHandler {
                 return DynamicItems.parallelSumConnection(items);
             case NEGATIVEFEEDBACK:
                 if (items.length > 1) {
-                    throw new SAXException("illegal argument to negative feedback");
+                    DynamicItem seq = DynamicItems.sequentialConnection(items);
+                    return DynamicItems.negativeFeedbackConnection(seq);
                 }
                 return DynamicItems.negativeFeedbackConnection(items[0]);
         }
@@ -328,7 +421,7 @@ public class AssignmentHandler extends DefaultHandler {
      * Create dynamic item according to the type and attributes values
      *
      * @param type type of the item
-     * @param values value of the item
+     * @param values computeValue of the item
      * @return resulting dynamic item
      * @throws SAXException sax parser exception
      */
@@ -374,7 +467,8 @@ public class AssignmentHandler extends DefaultHandler {
             default:
                 throw new SAXException(TAG_NOT_DEFINED);
         }
-
+        
+        //ide warning useless, because exception will be thrown
         result.setInitialCondition(initial);
 
         return result;
@@ -393,5 +487,17 @@ public class AssignmentHandler extends DefaultHandler {
         item.setInitialCondition(initial);
 
         return item;
+    }
+    
+    /* Some helpers */
+    
+    private String[] toStringArray(List<String> list) {
+        return list.toArray(new String[list.size()]);
+    }
+    
+    private double[] toDoubleArray(List<Double> list) {
+        
+        //the most foolish line in project
+        return list.stream().mapToDouble(d -> (double) d).toArray();
     }
 }

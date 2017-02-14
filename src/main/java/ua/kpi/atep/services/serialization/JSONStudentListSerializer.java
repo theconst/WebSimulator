@@ -20,7 +20,7 @@ import static ua.kpi.atep.services.serialization.JSONStudentListSerializer.Stude
 import static ua.kpi.atep.services.serialization.JSONStudentListSerializer.StudentSerilizableProps.VARIANT;
 
 /**
- *
+ * //TODO: fix serialization (use something like gson)
  * @author Home
  */
 @Service

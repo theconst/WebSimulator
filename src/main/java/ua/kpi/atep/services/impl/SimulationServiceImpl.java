@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.kpi.atep.dao.ModellingDataDAO;
+import ua.kpi.atep.dao.UserDAO;
+import ua.kpi.atep.model.entity.Assignment;
 import ua.kpi.atep.model.entity.EntityFactory;
 import ua.kpi.atep.model.entity.ModellingData;
+import ua.kpi.atep.model.entity.Student;
+import ua.kpi.atep.model.entity.User;
 import ua.kpi.atep.services.AppModelState;
 import ua.kpi.atep.services.SimulationService;
 import ua.kpi.atep.services.UserSession;
@@ -39,11 +43,21 @@ public class SimulationServiceImpl implements SimulationService {
     private ModellingDataDAO dataDAO;
     
     @Autowired
+    private UserDAO userDAO;
+    
+    @Autowired
     private EntityFactory factory;
 
     private boolean isAutorized(UserSession session) {
         return (session.getUser() != null)
                 && (session.getUser().getAssignment() != null);
+    }
+    
+    @Override
+    public Assignment getAssignmentById(int studentId) {
+        User student = userDAO.find(studentId);
+        
+        return student.getAssignment();
     }
 
     @Override

@@ -3,6 +3,8 @@
  */
 package ua.kpi.atep.services;
 
+import ua.kpi.atep.model.entity.Assignment;
+
 /**
  *
  * @author Home
@@ -13,8 +15,10 @@ public interface SimulationService {
     
     String getUserActivityContentType();
     
-    String getUserActivity(int userID);
+    String getUserActivity(int userId);
     
-    public void saveModellingData(int userID, CharSequence userActivity);
+    Assignment getAssignmentById(int userId);
+    
+    void saveModellingData(int userID, CharSequence userActivity);
     
 }

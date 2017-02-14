@@ -4,6 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
        xsi:schemaLocation=
         "http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
@@ -15,7 +16,10 @@
          http://www.springframework.org/schema/mvc/spring-mvc.xsd
                            
          http://www.springframework.org/schema/tx
-         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+
+         http://www.springframework.org/schema/websocket
+         http://www.springframework.org/schema/websocket/spring-websocket.xsd">
     
     <!-- Placeholder for resolving properties in xml file -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -45,9 +49,40 @@
     <!-- file upload resolver -->
     <bean id="multipartResolver" 
           class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-      <!--  <property name="maxUploadSize" value="${web.param.filesize}" /> -->
+        <!--  <property name="maxUploadSize" value="${web.param.filesize}" /> -->
     </bean>
-  
+    
+    <!-- Websocket configuration -->
+<!--    <bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+    </bean>-->
+    
+    <bean id="simulationWebSocket" 
+          class="ua.kpi.atep.controller.socket.SimulationWebSocketHandler" >
+        <!-- 2MB max history file size -->
+        <constructor-arg value="2097152"/>
+    </bean>
+    
+    <bean id="simulationWebSocketExceptionDecorator"
+          class="org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator">
+        <constructor-arg ref="simulationWebSocket" />
+    </bean>
+    
+    <bean id="simulationWebSocketExceptionLoggingDecorator"
+          class="org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator">
+        <constructor-arg ref="simulationWebSocketExceptionDecorator" />
+    </bean>
+
+    <!-- pass http session to websocket -->
+    <websocket:handlers>
+        <websocket:mapping path="/model" 
+                           handler="simulationWebSocketExceptionLoggingDecorator" />
+        <websocket:handshake-interceptors>
+            <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+    </websocket:handlers>
+    
+    
+     
     <!-- Using annotation-based configuration of controller -->
     <mvc:annotation-driven/>
     

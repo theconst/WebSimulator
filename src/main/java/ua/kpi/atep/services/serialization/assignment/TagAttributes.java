@@ -13,10 +13,12 @@ enum TagAttributes {
     DELAY, 
     TIME, 
     VARIANCE, 
-    P,                          //!
-    I,                          //!
-    D,                          //!
-    INPUT, OUTPUT, FUNCTION;
+    P,                          //proporional gain
+    I,                          //integral time constant
+    D,                          //differential time constant
+    INPUT, OUTPUT, FUNCTION,
+    MAX, MIN,
+    ALARMLOW, ALARMHI, ALARMLOWCRITICAL, ALARMHICRITICAL;
 
     public static TagAttributes fromName(String name) {
         return TagAttributes.valueOf(name.toUpperCase());

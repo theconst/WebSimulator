@@ -1,13 +1,7 @@
-/*
-    CSS for simulator
-*/
-
-/* max height of the picture*/
 header {
     display: top;
 }
-
-/* contains svg and charts */ 
+ 
 .flex-container {
     display: flex;
     flex-direction: row;

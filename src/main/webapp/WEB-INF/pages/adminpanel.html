@@ -4,32 +4,37 @@
         <title>Web Simulator | Administration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="libs/bootstrap.min.css">
+        <link rel="stylesheet" href="libs/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/style.css" />
         <script src="libs/jquery-3.1.1.min.js"></script>
+        <script src="js/adminpanel.js"></script>
     </head>
     <body>
         <h1 class="text-center">Адміністрування</h1>
         <div class="container">
-            <div class="row">
-                <div class ="form-group">
-                    <form id="uploadbanner" 
-                          enctype="multipart/form-data"
-                          method="post" 
-                          action="/WebSimulator/uploadmodel">
-                        <fieldset>
-                            <input id="fileupload" name="modelxml" type="file" />
-                            <input id="upload" type="submit" value="Завантажити модель" class="btn"/>
-                        </fieldset>
-                    </form>
-                    <!-- in development -->
-                    <form id="liststudents" 
-                          action="/WebSimulator/liststudents"
-                          method="get">
-                        <input id="list" type="submit" value="Список студентів" class="btn" />
-                    </form>
-                </div>
+            <div class ="form-group">
+                <form id="uploadbanner" 
+                      enctype="multipart/form-data"
+                      method="post" 
+                      action="/WebSimulator/uploadmodel" 
+                      class="form-horizontal">
+                    <fieldset>
+                        <input id="fileupload" name="modelxml" type="file" />
+                        <input id="upload" type="submit" value="Завантажити модель" class="btn"/>
+                    </fieldset>
+                </form>
+                <!-- in development -->
+                <form id="liststudents" >
+                    <input id="list" type="button" value="Список студентів" class="btn" />
+                </form>
+
+                <table id="student-list" class="table-bordered">
+                    <caption>Список студентів</caption>
+                    <tr id="student-list-header">
+                        <th>Логін</th><th>Ім&apos;я</th><th>Група</th><th>Варіант</th>
+                    </tr>
+                </table>
             </div>
         </div>
-
     </body>
 </html>

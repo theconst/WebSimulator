@@ -2,250 +2,258 @@
            elementFormDefault="qualified" 
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
     
-  <!-- xml schema to validate the assignment -->  
-  <!-- please pay attention to the order in which item should go in valid 
-    document!
-    -->
+    <!-- xml schema to validate the assignment -->  
+    <!-- Feature: order of items is enforced -->
+    <!-- Feature: Negative feedback can contain more than one item -->
+    <!-- Feature: id's for simle items are not used, but required -->
   
-  <xs:element name="lag">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:float" name="initial" use="required"/>
-          <xs:attribute type="xs:float" name="gain" use="required" />
-          <xs:attribute type="xs:float" name="timeConstant" use="required" />
-        </xs:extension>
-      </xs:simpleContent>
+    <xs:element name="lag">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required"/>
+                    <xs:attribute type="xs:float" name="gain" use="required" />
+                    <xs:attribute type="xs:float" name="timeConstant" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="delay">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required" />
+                    <xs:attribute type="xs:float" name="initial" use="required" />
+                    <xs:attribute type="xs:float" name="time" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="noise">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required" />
+                    <xs:attribute type="xs:float" name="variance" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="folpdn">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required"/>
+                    <xs:attribute type="xs:float" name="gain" use="required"/>
+                    <xs:attribute type="xs:float" name="timeConstant" use="required"/>
+                    <xs:attribute type="xs:float" name="delay" use="required"/>
+                    <xs:attribute type="xs:float" name="variance" use="optional" default="0.0" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+    <xs:element name="pid">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required"/>
+                    <xs:attribute type="xs:float" name="p" use="optional" default="1.0"/>
+                    <xs:attribute type="xs:float" name="i" use="optional" default="0.0"/>
+                    <xs:attribute type="xs:float" name="d" use="optional" default="0.0"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+  
+  
+    <!-- A dynamic item is either a simple item or a complex connection of items -->
+    <xs:complexType name="complexitem">
+        <xs:sequence>
+            <xs:element ref="pid" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="lag" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="delay" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="noise" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="folpdn" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="sequentialConnection" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="parallelConnection" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="negativeFeedback" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
     </xs:complexType>
-  </xs:element>
   
-  <xs:element name="delay">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required" />
-          <xs:attribute type="xs:float" name="initial" use="required" />
-          <xs:attribute type="xs:float" name="time" use="required" />
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
+    <xs:element name="sequentialConnection" type="complexitem" />
+    <xs:element name="parallelConnection" type="complexitem" />
+    <xs:element name="negativeFeedback" type="complexitem" />
   
-  <xs:element name="noise">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:float" name="initial" use="required" />
-          <xs:attribute type="xs:float" name="variance" use="required" />
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="folpdn">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:float" name="initial" use="required"/>
-          <xs:attribute type="xs:float" name="gain" use="required"/>
-          <xs:attribute type="xs:float" name="timeConstant" use="required"/>
-          <xs:attribute type="xs:float" name="delay" use="required"/>
-          <xs:attribute type="xs:float" name="variance" use="optional" default="0.0" />
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-  
-  <xs:element name="pid">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:float" name="initial" use="required"/>
-          <xs:attribute type="xs:float" name="p" use="optional" default="1.0"/>
-          <xs:attribute type="xs:float" name="i" use="optional" default="0.0"/>
-          <xs:attribute type="xs:float" name="d" use="optional" default="0.0"/>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
-  
-  
-  <!-- A dynamic item is either a simple item or a complex connection of items -->
-  <xs:complexType name="complexitem">
-    <xs:sequence>
-        <xs:element ref="pid" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="lag" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="delay" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="noise" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="folpdn" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:element ref="sequentialConnection" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element ref="parallelConnection" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element ref="negativeFeedback" minOccurs="0" maxOccurs="unbounded" />
-    </xs:sequence>
-  </xs:complexType>
-  
-  <xs:element name="sequentialConnection" type="complexitem" />
-  <xs:element name="parallelConnection" type="complexitem" />
-  <xs:element name="negativeFeedback" type="complexitem" />
-  
-  <!-- transfer function is either a simple item or some connection of items -->
-  <xs:element name="transferFunction">
-    <xs:complexType>
-      <xs:choice>
-        <xs:element ref="lag" />
-        <xs:element ref="delay" />
-        <xs:element ref="noise" />
-        <xs:element ref="pid" />
-        <xs:element ref="folpdn" />
-        <xs:element ref="sequentialConnection" />
-        <xs:element ref="parallelConnection" />
-        <xs:element ref="negativeFeedback" />
-      </xs:choice>
+    <!-- transfer function is either a simple item or some connection of items -->
+    <xs:element name="transferFunction">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="lag" />
+                <xs:element ref="delay" />
+                <xs:element ref="noise" />
+                <xs:element ref="pid" />
+                <xs:element ref="folpdn" />
+                <xs:element ref="sequentialConnection" />
+                <xs:element ref="parallelConnection" />
+                <xs:element ref="negativeFeedback" />
+            </xs:choice>
       
-      <xs:attribute type="xs:string" name="id" use="required"/>
-    </xs:complexType>
-  </xs:element>
+            <xs:attribute type="xs:string" name="id" use="required"/>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- input has just an id (internal representation) and a name (how the client should access this attribute) -->
-  <xs:element name="input">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:string" name="name" use="required"/>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
+    <!-- input has just an id (internal representation) and a name (how the client should access this attribute) -->
+    <xs:element name="input">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:string" name="name" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required" />
+                    <xs:attribute type="xs:float" name="min" use="required" />
+                    <xs:attribute type="xs:float" name="max" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- output has just an id (internal representation) and a name (how the client should access this attribute) -->
-  <xs:element name="output">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="id" use="required"/>
-          <xs:attribute type="xs:string" name="name" use="required"/>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
+    <!-- output has just an id (internal representation) and a name (how the client should access this attribute) -->
+    <xs:element name="output">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="id" use="required"/>
+                    <xs:attribute type="xs:string" name="name" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="optional" default="0"/>
+                    <xs:attribute type="xs:float" name="alarmLow" use="required" />
+                    <xs:attribute type="xs:float" name="alarmLowCritical" use="required" />
+                    <xs:attribute type="xs:float" name="alarmHi" use="required" />
+                    <xs:attribute type="xs:float" name="alarmHiCritical" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- relationship defines a transfer function from input to ouput -->
-  <xs:element name="relationship">
-    <xs:complexType>
-      <xs:simpleContent>
-        <xs:extension base="xs:string">
-          <xs:attribute type="xs:string" name="input" use="required"/>
-          <xs:attribute type="xs:string" name="output" use="required"/>
-          <xs:attribute type="xs:string" name="function" use="required"/>
-        </xs:extension>
-      </xs:simpleContent>
-    </xs:complexType>
-  </xs:element>
+    <!-- relationship defines a transfer function from input to ouput -->
+    <xs:element name="relationship">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:string" name="input" use="required"/>
+                    <xs:attribute type="xs:string" name="output" use="required"/>
+                    <xs:attribute type="xs:string" name="function" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- declare transfer functions used in model -->
-  <xs:element name="transferFunctions">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="transferFunction" maxOccurs="unbounded" minOccurs="0"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+    <!-- declare transfer functions used in model -->
+    <xs:element name="transferFunctions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="transferFunction" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- declare inputs id's used in the model -->
-  <xs:element name="inputs">
-    <xs:complexType>
-      <xs:choice maxOccurs="unbounded" minOccurs="1">
-        <xs:element ref="input"/>
-      </xs:choice>
-    </xs:complexType>
-  </xs:element>
+    <!-- declare inputs id's used in the model -->
+    <xs:element name="inputs">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded" minOccurs="1">
+                <xs:element ref="input"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- declare outputs used in the model -->
-  <xs:element name="outputs">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="output" maxOccurs="unbounded" minOccurs="1"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+    <!-- declare outputs used in the model -->
+    <xs:element name="outputs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="output" maxOccurs="unbounded" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- relationships = itput -> transferFunction -> output -->
-  <xs:element name="relationships">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="relationship" maxOccurs="unbounded" minOccurs="1"/>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+    <!-- relationships = itput -> transferFunction -> output -->
+    <xs:element name="relationships">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="relationship" maxOccurs="unbounded" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
   
-  <!-- assignment consists of ONE comment (optionally) and ONE model -->
+    <!-- assignment consists of ONE comment (optionally) and ONE model -->
   
-  <xs:element name="comment" type="xs:string" />
+    <xs:element name="comment" type="xs:string" />
   
-  <xs:element name="model">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="transferFunctions" minOccurs="1" maxOccurs="1" />
-        <xs:element ref="inputs" minOccurs="1" maxOccurs="1" />
-        <xs:element ref="outputs" minOccurs="1" maxOccurs="1" />
-        <xs:element ref="relationships" minOccurs="1" maxOccurs="1" />
-      </xs:sequence>
-      <xs:attribute type="xs:float" name="sampling" use="required" />
-    </xs:complexType>
+    <xs:element name="model">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="transferFunctions" minOccurs="1" maxOccurs="1" />
+                <xs:element ref="inputs" minOccurs="1" maxOccurs="1" />
+                <xs:element ref="outputs" minOccurs="1" maxOccurs="1" />
+                <xs:element ref="relationships" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+            <xs:attribute type="xs:float" name="sampling" use="required" />
+        </xs:complexType>
     
-    <!-- define id's as keys -->
-    <xs:key name = "outputsKey" >
-        <xs:selector xpath="outputs/output"/>
-        <xs:field xpath="@id"/>
-    </xs:key>
-    <xs:key name = "inputsKey" >
-        <xs:selector xpath="inputs/input"/>
-        <xs:field xpath="@id"/>
-    </xs:key>
-    <xs:key name = "transferFunctionsKey" >
-        <xs:selector xpath="transferFunctions/transferFunction" />
-        <xs:field xpath="@id"/>
-    </xs:key>
+        <!-- define id's as keys -->
+        <xs:key name = "outputsKey" >
+            <xs:selector xpath="outputs/output"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name = "inputsKey" >
+            <xs:selector xpath="inputs/input"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name = "transferFunctionsKey" >
+            <xs:selector xpath="transferFunctions/transferFunction" />
+            <xs:field xpath="@id"/>
+        </xs:key>
   
-    <!-- define foreign keys -->
-    <xs:keyref name="transferFunctionFK" refer="transferFunctionsKey">
-        <xs:selector xpath="relationships" />
-        <xs:field xpath = "@function" />
-    </xs:keyref>
+        <!-- define foreign keys -->
+        <xs:keyref name="transferFunctionFK" refer="transferFunctionsKey">
+            <xs:selector xpath="relationships" />
+            <xs:field xpath = "@function" />
+        </xs:keyref>
     
-    <xs:keyref name="inputsFK" refer="inputsKey">
-        <xs:selector xpath="relationships" />
-        <xs:field xpath = "@input" />
-    </xs:keyref>
+        <xs:keyref name="inputsFK" refer="inputsKey">
+            <xs:selector xpath="relationships" />
+            <xs:field xpath = "@input" />
+        </xs:keyref>
     
-    <xs:keyref name="outputsFK" refer="outputsKey">
-        <xs:selector xpath="relationships" />
-        <xs:field xpath = "@output" />
-    </xs:keyref>
-    <!-- end of foreign keys -->
+        <xs:keyref name="outputsFK" refer="outputsKey">
+            <xs:selector xpath="relationships" />
+            <xs:field xpath = "@output" />
+        </xs:keyref>
+        <!-- end of foreign keys -->
     
-  </xs:element>
+    </xs:element>
   
-  <!-- root element of the dociment -->
-  <xs:element name="assignment">
-    <xs:complexType>
-      <xs:all>
+    <!-- root element of the dociment -->
+    <xs:element name="assignment">
+        <xs:complexType>
+            <xs:all>
         
-        <!-- optional comment -->
-        <xs:element ref="comment" minOccurs="0" maxOccurs="1" />
+                <!-- optional comment -->
+                <xs:element ref="comment" minOccurs="0" maxOccurs="1" />
         
-        <!-- dynamic model definition -->
-        <xs:element ref="model" minOccurs="1" maxOccurs="1" />
-      </xs:all>
+                <!-- dynamic model definition -->
+                <xs:element ref="model" minOccurs="1" maxOccurs="1" />
+            </xs:all>
       
-      <!-- variant for the assignment -->
-      <xs:attribute type="xs:byte" name="variant" use="required" />
-    </xs:complexType>
-  </xs:element>
+            <!-- variant for the assignment -->
+            <xs:attribute type="xs:byte" name="variant" use="required" />
+        </xs:complexType>
+    </xs:element>
    
 </xs:schema>

@@ -25,6 +25,9 @@ $(window).on("load", function () {
                         }
                     }],
                 yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        },
                         display: true,
                         scaleLabel: {
                             display: true,
@@ -55,7 +58,7 @@ $(window).on("load", function () {
     };
 
 
-    //abstract handle for chart.js
+    //handle for chart.js
     function ChartHandle(chart, coloringStrategy) {
         this.chart = chart;
 
@@ -205,43 +208,44 @@ $(window).on("load", function () {
 
 //register callbacks for each of the functions
     valves.forEach(function (x) {
-        $(id(x, "-up-arrow")).mousedown(function (event) {
-            event.preventDefault();
-            console.log('up-arrow');
+        $(id(x, "-up-arrow")).mousedown(function () {
+//            console.log('up-arrow');
             replaceText($(id(x, "-pos")), userInputs, x, up);
+            return false;
         });
-        $(id(x, "-down-arrow")).mousedown(function (event) {
-            event.preventDefault();
-            console.log('down-arrow');
+        $(id(x, "-down-arrow")).mousedown(function () {
+//            console.log('down-arrow');
             replaceText($(id(x, "-pos")), userInputs, x, down);
+            return false;
         });
     });
 
     [1, 2, 3, 4, 5, 6].forEach(function (x) {
-        $(id("display-temp-", x)).change(function (event) {
-            event.preventDefault();
+        $(id("display-temp-", x)).change(function () {
             var val = $(this).is(':checked');
             chartHandle.setVisible("T" + x, val);
+            return false;
         });
     });
 
     $('#clear-canvas').click(function (event) {
-        event.preventDefault();
         userInputs["clear"] = true;
+        return false;
     });
 
     $('#pause').click(function (event) {
-        event.preventDefault();
         userInputs["pause"] = !userInputs["pause"];
+        return false;
     });
 
     $('#finish-btn').click(function (event) {
-        event.preventDefault();
         userInputs["finish"] = true;
+        return false;
     });
 
-    $('#sim-speed').on("change mousemove", function () {
+    $('#sim-speed').on("change mousemove", function (event) {
         userInputs["speed"] = $(this).val();
+        return false;
     });
     /************************************************************************/
 
@@ -259,7 +263,7 @@ $(window).on("load", function () {
         //process text message from data source
         function processTextMessage(message) {
             var data = JSON.parse(message.data);
-//                console.log("Data:" + data);
+                console.log("Data:" + data);
             handle.appendArgument(data["ticks"]).
                     appendRow({label: "T1", row: data["param1"]}).
                     appendRow({label: "T2", row: data["param2"]}).
@@ -328,7 +332,7 @@ $(window).on("load", function () {
         console.log("closed, reason("
                 + event.eventCode + "," + event.reason + ")");
 
-        //temporary workaround
+        //! temporary workaround
         $('#history-ref').show();
         window.clearInterval(loopHandle);
     };

@@ -3,10 +3,9 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema">
     
     <!-- xml schema to validate the assignment -->  
-    <!-- BUG: order of items is enforced! -->
-    <!-- BUG: Negative feedback can contain more than one item -->
-    <!-- BUG: id's for simle items are not used, but required -->
-    <!-- bloat with more items elements -->
+    <!-- Feature: order of items is enforced -->
+    <!-- Feature: Negative feedback can contain more than one item -->
+    <!-- Feature: id's for simle items are not used, but required -->
   
     <xs:element name="lag">
         <xs:complexType>
@@ -91,20 +90,7 @@
   
     <xs:element name="sequentialConnection" type="complexitem" />
     <xs:element name="parallelConnection" type="complexitem" />
-    <xs:element name="negativeFeedback">
-        <xs:complexType>
-            <xs:choice>
-                    <xs:element ref="pid" />
-                    <xs:element ref="lag" />
-                    <xs:element ref="delay" />
-                    <xs:element ref="noise" />
-                    <xs:element ref="folpdn" />
-                    <xs:element ref="sequentialConnection" />
-                    <xs:element ref="parallelConnection" />
-                    <xs:element ref="negativeFeedback"/>
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="negativeFeedback" type="complexitem" />
   
     <!-- transfer function is either a simple item or some connection of items -->
     <xs:element name="transferFunction">
@@ -131,6 +117,9 @@
                 <xs:extension base="xs:string">
                     <xs:attribute type="xs:string" name="id" use="required"/>
                     <xs:attribute type="xs:string" name="name" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="required" />
+                    <xs:attribute type="xs:float" name="min" use="required" />
+                    <xs:attribute type="xs:float" name="max" use="required" />
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>
@@ -143,6 +132,11 @@
                 <xs:extension base="xs:string">
                     <xs:attribute type="xs:string" name="id" use="required"/>
                     <xs:attribute type="xs:string" name="name" use="required"/>
+                    <xs:attribute type="xs:float" name="initial" use="optional" default="0"/>
+                    <xs:attribute type="xs:float" name="alarmLow" use="required" />
+                    <xs:attribute type="xs:float" name="alarmLowCritical" use="required" />
+                    <xs:attribute type="xs:float" name="alarmHi" use="required" />
+                    <xs:attribute type="xs:float" name="alarmHiCritical" use="required" />
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>

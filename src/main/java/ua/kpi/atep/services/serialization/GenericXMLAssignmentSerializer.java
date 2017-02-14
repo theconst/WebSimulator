@@ -49,12 +49,12 @@ public class GenericXMLAssignmentSerializer
 
             reader.setContentHandler(handler);
             reader.parse(new InputSource(xml));
-
+            
             return handler.getAssignment();
 
         } catch (SAXException | IOException ex) {
             throw new SerializationException(ex);
-        }
+        } 
        //  ParserConfigurationException ex
     }
 

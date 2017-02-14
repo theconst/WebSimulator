@@ -88,6 +88,13 @@
                 </parallelConnection>
             </transferFunction>
             
+            <transferFunction id="sequential">
+                <sequentialConnection>
+                    <lag id="seq-lag" initial="0.0" gain="0.9" timeConstant="100" />
+                    <delay id="delay" initial="0.0" time="8.0" />
+                </sequentialConnection>
+            </transferFunction>
+            
             <transferFunction id="noise">
                 <!-- do not specify initial for noise -->
                 <parallelConnection>
@@ -103,23 +110,27 @@
             <transferFunction id="typical2">
                 <lag id="typicallal" initial="0.0" gain="1.511" timeConstant="142" />
             </transferFunction>
-           
         </transferFunctions>
           
-          
         <inputs>
-            <input id="x1" name="input1" /> 
-            <input id="x2" name="input2" /> 
-            <input id="x3" name="input3" /> 
+            <input id="x1" name="input1" initial="50" min="30" max="70" /> 
+            <input id="x2" name="input2" initial="50" min="40" max="60" /> 
+            <input id="x3" name="input3" initial="50" min="40" max="70" /> 
         </inputs>  
         
         <outputs>
-            <output id="y1" name="param1" /> 
-            <output id="y2" name="param2" />
-            <output id="y3" name="param3" />
-            <output id="y4" name="param4" />
-            <output id="y5" name="param5" />
-            <output id="y6" name="param6" />
+            <output id="y1" name="param1" alarmLow="100" alarmLowCritical="50" 
+                    alarmHi="500" alarmHiCritical="550"/> 
+            <output id="y2" name="param2" alarmLow="100" alarmLowCritical="50"
+                    alarmHi="550" alarmHiCritical="550"/>
+            <output id="y3" name="param3" alarmLow="110" alarmLowCritical="30"
+                    alarmHi="550" alarmHiCritical="600"/>
+            <output id="y4" name="param4" alarmLow="120" alarmLowCritical="23"
+                    alarmHi="570" alarmHiCritical="650"/>
+            <output id="y5" name="param5" alarmLow="130" alarmLowCritical="21"
+                    alarmHi="580"  alarmHiCritical="660"/>
+            <output id="y6" name="param6" alarmLow="140" alarmLowCritical="56" 
+                    alarmHi="590" alarmHiCritical="657"/>
         </outputs>
           
         <relationships>
