@@ -10,19 +10,20 @@ import java.io.Writer;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.multipart.MultipartFile;
-import static ua.kpi.atep.controller.socket.WebSocketConstants.MODEL;
-import static ua.kpi.atep.controller.socket.WebSocketConstants.STUDENT_ID;
 
 import ua.kpi.atep.services.*;
 
@@ -38,6 +39,7 @@ import static ua.kpi.atep.services.AppModelState.REGISTER_SUCCESS;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_NO_ASSIGNMENT;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_START;
 import static ua.kpi.atep.services.AppModelState.UNATORIZED_ACCESS;
+import ua.kpi.atep.services.serialization.Json;
 import ua.kpi.atep.services.serialization.SerializationException;
 import ua.kpi.atep.services.serialization.Serializer;
 
@@ -56,8 +58,11 @@ public class FrontController {
 
     private static final String ATTACHMENT = "attachment;filename=values.csv";
 
-    private static final String CONTENT_DISPOSITION_HEADER
-            = "Content-Disposition";
+    private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
+    
+    private static final String STILL_ALIVE_MESSAGE = "User {0} is still alive";
+    
+    private static final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
 
     /*
      * URL's for the applicaton
@@ -86,12 +91,6 @@ public class FrontController {
     @Value("${web.signup.message.closemessage}")
     private String closeWebSocketOrDoSimulation;
 
-    @Value("${web.admin.account}")
-    private String adminLogin;
-
-    @Value("${web.admin.password}")
-    private String adminPassword;
-
     @Value("${web.param.login}")
     private String loginParam;
 
@@ -103,6 +102,15 @@ public class FrontController {
 
     @Value("${web.param.group}")
     private String groupParam;
+    
+    @Value("${web.admin.account}")
+    private String adminLogin;
+
+    @Value("${web.admin.password}")
+    private String adminPassword;
+    
+    @Autowired
+    private MessageSettings messageSettings;
 
     /**
      * Register implements registration logic
@@ -145,6 +153,8 @@ public class FrontController {
 
     /**
      * Initialize view resolver
+     * 
+     * //will be replaced by some front-end framework
      */
     @PostConstruct
     private void init() {
@@ -162,9 +172,26 @@ public class FrontController {
 
         viewResolver.put(
                 ASSIGNMENT_CREATION_SUCCESS, redirectTo(adminpanelPage));
-
-        //initialize administration
-        administrationService.initAdministration(adminLogin, adminPassword);
+        
+        /**
+         * Initialize services defaults
+         */
+        administrationService.createAdminAccount(adminLogin, adminPassword);
+    }
+    
+    
+    /**
+     * Mapping for heartbeat to keep the session alive
+     * 
+     * @return plain meaningless text
+     */
+    @RequestMapping(value = "${web.action.heartbeat}",
+                    produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+    public String heartbeat() {
+        LOGGER.log(Level.INFO, STILL_ALIVE_MESSAGE,
+                userSession.getUser().getLogin());
+        return "ok";
     }
 
     /**
@@ -237,28 +264,25 @@ public class FrontController {
      * Starts simulation
      *
      * @param request user request
-     * @return simulation page if user is properly logged in
+     * @return  json with initial parameters
+     * @throws java.io.IOException
      */
-    @RequestMapping(value = "${web.action.simulate}")
-    public String startSimulation(HttpServletRequest request) {
+    @RequestMapping(value = "${web.action.simulate}",
+        method = RequestMethod.GET, 
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String startSimulation(HttpServletRequest request) throws IOException {
         AppModelState simulationStartResult
                 = simulationService.initSimulation(userSession);
-
-        /* 
-         * Pass required attributes to session
-         */
+        
         if (simulationStartResult == SIMULATION_START) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute(STUDENT_ID, userSession.getUser().getId());
-            session.setAttribute(MODEL, 
-                    userSession.getUser().getAssignment().getModel());
+            
+            //pass settings as
+            return Json.stringify(messageSettings);
         }
-
-        return resolveView(simulationStartResult);
+        return "";  //TODO: remove the stub
     }
 
-    //this method behaves awkwardly when user presses the save button too
-    //quickly
     @RequestMapping(value = "${web.action.history}")
     @ResponseBody
     public String getStory(HttpServletResponse response) {
@@ -322,9 +346,8 @@ public class FrontController {
      * @return error page
      */
     @ExceptionHandler(Exception.class)
-    public String handleError(Exception ex
-    ) {
-        Logger.getLogger(FrontController.class.getName(), ex.getMessage());
+    public String handleError(Exception ex) {
+        LOGGER.log(Level.SEVERE, ex.getMessage());
 
         return redirectTo(errorPage);
     }

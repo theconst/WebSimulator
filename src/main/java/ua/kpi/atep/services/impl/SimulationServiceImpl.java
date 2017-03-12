@@ -13,11 +13,11 @@ import ua.kpi.atep.dao.UserDAO;
 import ua.kpi.atep.model.entity.Assignment;
 import ua.kpi.atep.model.entity.EntityFactory;
 import ua.kpi.atep.model.entity.ModellingData;
-import ua.kpi.atep.model.entity.Student;
 import ua.kpi.atep.model.entity.User;
 import ua.kpi.atep.services.AppModelState;
 import ua.kpi.atep.services.SimulationService;
 import ua.kpi.atep.services.UserSession;
+
 
 /**
  *
@@ -38,6 +38,8 @@ public class SimulationServiceImpl implements SimulationService {
             = "Anatorized user could not start simulation";
 
     private static final String CONTENT_TYPE = "text/csv";
+    
+    private static final Logger logger = Logger.getLogger(SimulationServiceImpl.class.getName());
 
     @Autowired
     private ModellingDataDAO dataDAO;
@@ -66,9 +68,7 @@ public class SimulationServiceImpl implements SimulationService {
             return AppModelState.UNATORIZED_ACCESS;
         }
 
-        Logger.getLogger(SimulationServiceImpl.class.getName())
-                .log(Level.INFO, USER_STARTED_MESSAGE,
-                        session.getUser().getLogin());
+        logger.log(Level.INFO, USER_STARTED_MESSAGE, session.getUser().getLogin());
 
         return AppModelState.SIMULATION_START;
     }
@@ -99,5 +99,8 @@ public class SimulationServiceImpl implements SimulationService {
                 
         dataDAO.update(data);
     }
+    
+    
+    
     
 }

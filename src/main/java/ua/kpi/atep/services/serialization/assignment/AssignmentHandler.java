@@ -24,8 +24,8 @@ import ua.kpi.atep.model.entity.Assignment;
  * 
  * //TODO: refactor this to multiple handlers:
  *  1. TransferFunctionHandler: getTransferFunctions => Map<String, DynamicItem>
- *  2. InputHandler: getNaming => Map<String, String>, getInput => Input
- *  3. OutputHandler 
+ *  2. InputHandler: getNaming => Map<String, String>, getInput => DynamicModelInput
+  3. OutputHandler 
  *
  * @author Konstantin Kovalchuk
  */
@@ -35,9 +35,12 @@ public class AssignmentHandler extends DefaultHandler {
 //            = Logger.getLogger(AssignmentHandler.class.getName());
 
     private static final String TAG_NOT_DEFINED = "Tag not defined";
+    
+    private static final String ILLEGAL_ARGUMENT_OF_THE_OPERATION 
+             = "Illegal argument of the operation";
 
     /**
-     * Parent parser of this handler
+     * Parent parser of this handler    //not used yet, but should be as dependency
      */
     private XMLReader parent;
 
@@ -86,7 +89,7 @@ public class AssignmentHandler extends DefaultHandler {
     /**
      * Inputs of the model
      */
-    private Input modelInput;
+    private DynamicModelInput modelInput;
     
     /**
      * High alarms for outputs
@@ -116,7 +119,7 @@ public class AssignmentHandler extends DefaultHandler {
     /**
      * Outputs of the model
      */
-    private Output modelOutput;
+    private DynamicModelOutput modelOutput;
 
     /**
      * id => name
@@ -133,7 +136,7 @@ public class AssignmentHandler extends DefaultHandler {
      */
     private DynamicModel model;
 
-    /* data needed for dynamic model creation */
+    /** Data needed for dynamic model creation */
     private DynamicItemFactory itemFactory;
 
     /**
@@ -283,7 +286,7 @@ public class AssignmentHandler extends DefaultHandler {
                 Token result = stack.pop();
 
                 if (result.isOperation()) {
-                    throw new SAXException("Illegal argument of the operation");
+                    throw new SAXException(ILLEGAL_ARGUMENT_OF_THE_OPERATION);
                 }
                 transferFunctions.put(currentTranferFunctionId, result.value());
 
@@ -311,13 +314,13 @@ public class AssignmentHandler extends DefaultHandler {
                 stack.push(new Operand(operationResult));
                 break;
             case INPUTS:
-                modelInput = new Input(toStringArray(inputNames), 
+                modelInput = new DynamicModelInput(toStringArray(inputNames), 
                         toDoubleArray(initialInputs));
                 modelInput.setMax(toDoubleArray(maxs));
                 modelInput.setMin(toDoubleArray(mins));
                 break;
             case OUTPUTS:
-                modelOutput = new Output(toStringArray(outputNames),
+                modelOutput = new DynamicModelOutput(toStringArray(outputNames),
                     toDoubleArray(initialOutputs));
                 modelOutput.setAlarmHi(toDoubleArray(alarmHis));
                 modelOutput.setAlarmLow(toDoubleArray(alarmLows));
@@ -386,7 +389,7 @@ public class AssignmentHandler extends DefaultHandler {
      * @param outputs model outputs
      * @return resulting model
      */
-    private DynamicModel createModel(Input modelInput, Output modelOutput) {
+    private DynamicModel createModel(DynamicModelInput modelInput, DynamicModelOutput modelOutput) {
         DynamicModel result = DynamicModel.newInstance(modelInput,
                 modelOutput);
         return result;
@@ -414,7 +417,7 @@ public class AssignmentHandler extends DefaultHandler {
                 }
                 return DynamicItems.negativeFeedbackConnection(items[0]);
         }
-        throw new SAXException("no such connection");
+        throw new SAXException(TAG_NOT_DEFINED);
     }
 
     /**
@@ -473,6 +476,8 @@ public class AssignmentHandler extends DefaultHandler {
 
         return result;
     }
+    
+    /* Helper methods */
 
     private double getOrZero(Map<TagAttributes, String> vals, TagAttributes attr) {
         return parseDouble(vals.getOrDefault(attr, "0"));
@@ -488,8 +493,6 @@ public class AssignmentHandler extends DefaultHandler {
 
         return item;
     }
-    
-    /* Some helpers */
     
     private String[] toStringArray(List<String> list) {
         return list.toArray(new String[list.size()]);

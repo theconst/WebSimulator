@@ -21,10 +21,42 @@
          http://www.springframework.org/schema/websocket
          http://www.springframework.org/schema/websocket/spring-websocket.xsd">
     
-    <!-- Placeholder for resolving properties in xml file -->
+     <!-- Placeholder for resolving properties in xml file -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="/WEB-INF/classes/web.properties" />
     </bean>
+     
+    <!-- Configuring database access (see context.xml in META-INF) -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/SimDB"/>
+    </bean>
+  
+    <!-- Spring orm configuration -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="ua.kpi.atep.model.entity" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="show_sql">${hibernate.show.sql}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            </props>
+        </property>
+    </bean>
+ 
+    <!-- Enable declarative transaction management -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- Transactoin post processing -->
+    <bean id="persistenceExceptionTranslationPostProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    
+     <!-- Enable annotation driven transations -->
+    <tx:annotation-driven />
  
     <!-- static resources resolving -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -57,12 +89,11 @@
     </bean>-->
     
     <bean id="simulationWebSocket" 
-          class="ua.kpi.atep.controller.socket.SimulationWebSocketHandler" >
-        <!-- 2MB max history file size -->
-        <constructor-arg value="2097152"/>
+          class="ua.kpi.atep.controller.SimulationWebSocketHandler">
+        
     </bean>
     
-    <bean id="simulationWebSocketExceptionDecorator"
+<!--    <bean id="simulationWebSocketExceptionDecorator"
           class="org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator">
         <constructor-arg ref="simulationWebSocket" />
     </bean>
@@ -70,22 +101,32 @@
     <bean id="simulationWebSocketExceptionLoggingDecorator"
           class="org.springframework.web.socket.handler.LoggingWebSocketHandlerDecorator">
         <constructor-arg ref="simulationWebSocketExceptionDecorator" />
+    </bean>-->
+    
+    <bean id="simulationPerConnectionHandler"
+          class="org.springframework.web.socket.handler.PerConnectionWebSocketHandler">
+        <constructor-arg>
+            <value type="java.lang.Class">ua.kpi.atep.controller.SimulationWebSocketHandler</value>
+        </constructor-arg>
     </bean>
 
     <!-- pass http session to websocket -->
     <websocket:handlers>
-        <websocket:mapping path="/model" 
-                           handler="simulationWebSocketExceptionLoggingDecorator" />
+        <websocket:mapping path="${web.socket.endpoint}" 
+                           handler="simulationPerConnectionHandler" />
         <websocket:handshake-interceptors>
-            <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+                <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
         </websocket:handshake-interceptors>
     </websocket:handlers>
     
-    
-     
     <!-- Using annotation-based configuration of controller -->
     <mvc:annotation-driven/>
     
     <!-- Annotated component scanning -->
     <context:component-scan base-package="ua.kpi.atep.controller" />
+
+    <context:component-scan base-package="ua.kpi.atep.services.impl"/>
+    <context:component-scan base-package="ua.kpi.atep.services.serialization" />
+    <context:component-scan base-package="ua.kpi.atep.model.entity"/> 
+    <context:component-scan base-package="ua.kpi.atep.dao.hibernate"/>
 </beans>

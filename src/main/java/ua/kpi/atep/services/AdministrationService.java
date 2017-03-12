@@ -15,13 +15,8 @@ import ua.kpi.atep.model.entity.Student;
  */
 public interface AdministrationService {
     
-    /**
-     * Initializes administrator account
-     * 
-     * @param account administrator account name
-     * @param password password
-     */
-    void initAdministration(String account, String password);
+    public void createAdminAccount(String login, String password);
+    
     
     /**
      * Set assignment

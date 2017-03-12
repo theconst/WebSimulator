@@ -5,7 +5,7 @@ import ua.kpi.atep.model.dynamic.items.DynamicItem;
 /**
  * 
  * Parser considers Dynamic ites as tokens,
- * Enclosing tags as operators (Polish notation)
+ * Enclosing tags are interpreted as operators (Polish notation)
  * 
  * Span of operator is determined by closing tag
  * 

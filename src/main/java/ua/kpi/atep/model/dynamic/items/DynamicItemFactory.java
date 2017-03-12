@@ -9,10 +9,17 @@ package ua.kpi.atep.model.dynamic.items;
  * @author Konstantin Kovalchuk
  */
 public class DynamicItemFactory implements AbstractDynamicItemFactory {
+    
+    private static final String SAMPLING_GREATER_THAN_ZERO 
+            = "sampling should be greater than zero";
 
     private final double sampling;
 
     public DynamicItemFactory(double sampling) {
+        if (sampling <= 0.0) {
+            throw new IllegalArgumentException(SAMPLING_GREATER_THAN_ZERO);
+        }
+        
         this.sampling = sampling;
     }
 

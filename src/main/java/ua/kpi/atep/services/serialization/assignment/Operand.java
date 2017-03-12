@@ -1,15 +1,14 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Operand.java
  */
 package ua.kpi.atep.services.serialization.assignment;
 
 import ua.kpi.atep.model.dynamic.items.DynamicItem;
 
 /**
- *
- * @author Home
+ * Operand of the dynamic item connection expression
+ * 
+ * @author Konstantin Kovalchuk
  */
 class Operand implements Token {
 

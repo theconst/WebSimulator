@@ -6,7 +6,7 @@ class MeasurementNoise extends DynamicItem {
     
     private static final long serialVersionUID = 33L;
 
-    private double standardDeviation;
+    private final double standardDeviation;
 
     //mean of noise is zero, unlikely to be changed
     private final double mean = 0.0;
@@ -23,7 +23,7 @@ class MeasurementNoise extends DynamicItem {
      * @inheritdoc 
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public DynamicItem clone() throws CloneNotSupportedException {
         MeasurementNoise result = (MeasurementNoise) super.clone();
         result.generator = new Random();
         
@@ -49,12 +49,5 @@ class MeasurementNoise extends DynamicItem {
      */
     double getStandardDeviation() {
         return standardDeviation;
-    }
-
-    /**
-     * @param standardDeviation the standardDeviation to set
-     */
-    void setStandardDeviation(double standardDeviation) {
-        this.standardDeviation = standardDeviation;
-    }
+    } 
 }

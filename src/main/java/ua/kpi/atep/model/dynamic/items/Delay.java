@@ -1,5 +1,7 @@
 package ua.kpi.atep.model.dynamic.items;
 
+import java.util.Arrays;
+
 /**
  * Represents delay in discrete dynamic system
  *
@@ -7,9 +9,12 @@ package ua.kpi.atep.model.dynamic.items;
  */
 class Delay extends DynamicItem {
     
+    private static final String DELAY_GREATER_THAN_ZERO_MSG 
+            = "Delay should be greater than zero";
+    
     private static final long serialVersionUID = 11L;
 
-    private int ticksDelay;
+    private final int ticksDelay;
 
     /**
      * Previous handleValue of the input
@@ -32,7 +37,7 @@ class Delay extends DynamicItem {
      * @param delay delay
      */
     public Delay(double samplingTime, double delay) {
-        this(samplingTime, (int) (delay / samplingTime));
+        this(samplingTime, (int) Math.ceil(delay / samplingTime));
     }
 
     /**
@@ -42,20 +47,26 @@ class Delay extends DynamicItem {
      * @param samplingTime
      * @param ticksDelay
      */
-    public Delay(double samplingTime, int ticksDelay) {
+    private Delay(double samplingTime, int ticksDelay) {
         super(samplingTime);
-
-        this.ticksDelay = ticksDelay;
+        if (ticksDelay < 0) {
+            throw new IllegalArgumentException();
+        }
+        
+        this.ticksDelay = ticksDelay != 0 ? ticksDelay : 1;
         this.prev = new double[ticksDelay];									//! zero initial conditions
         this.ticks = 0;
     }
 
     /**
-     * @inheritdoc
+     * clones the delay item
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public DynamicItem clone() throws CloneNotSupportedException {
+        Delay clone = (Delay) super.clone();
+        clone.prev = Arrays.copyOf(prev, prev.length);
+        
+        return clone;
     }
     
     /**
@@ -71,29 +82,11 @@ class Delay extends DynamicItem {
         ticks = (ticks + 1) % ticksDelay;
         return result;
     }
-
-    /* getters and setters, primarily for debugging */
-    int getTicksDelay() {
-        return this.ticksDelay;
+    
+    @Override
+    public void setInitialCondition(double initialCondition) {
+        super.setInitialCondition(initialCondition);
+        Arrays.fill(prev, initialCondition);   
     }
 
-    void setTicksDelay(int ticksDelay) {
-        this.ticksDelay = ticksDelay;
-    }
-
-    double[] getPrev() {
-        return this.prev;
-    }
-
-    void setPrev(double[] prev) {
-        this.prev = prev;
-    }
-
-    int getTicks() {
-        return this.ticks;
-    }
-
-    void setTicks(int ticks) {
-        this.ticks = ticks;
-    }
 }

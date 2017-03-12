@@ -45,15 +45,6 @@ public class AdministrationServiceImpl implements AdministrationService {
     @Autowired
     private PasswordHasher hasher;
 
-    @Override
-    @Transactional
-    public void initAdministration(String adminAccount, String adminPassword) {
-        //todo rethink as one service with register and login
-        User user = entityFactory.createUser(Permission.ADMIN);
-        user.setPassword(hasher.toHash(adminPassword));
-        user.setLogin(adminAccount);
-        userDAO.update(user);
-    }
 
     @Override
     @Transactional
@@ -125,6 +116,16 @@ public class AdministrationServiceImpl implements AdministrationService {
             return false;
         }
         return u.getPermission() == Permission.STUDENT;
+    }
+
+    @Override
+    @Transactional
+    public void createAdminAccount(String login, String password) {
+        User user = entityFactory.createUser(Permission.ADMIN);
+        user.setLogin(login);
+        user.setPassword(hasher.toHash(password));
+        
+        userDAO.update(user);
     }
 
 }

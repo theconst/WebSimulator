@@ -1,11 +1,14 @@
 package ua.kpi.atep.model.dynamic.items;
 
+//Candidate for deletion, just useless, static utilities are easier to use
 /**
  * Builds the dynamic item
+ * 
+ * 
  *
  * @author Kostiantyn Kovalchuk
  */
-public class DynamicItemBuilder {
+class DynamicItemBuilder {
 
     /**
      * Holds the result of the last building operation

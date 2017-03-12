@@ -17,17 +17,17 @@ class FirstOrderLag extends DynamicItem {
     /**
      * K - gain
      */
-    private double gain;
+    private final double gain;
 
     /**
      * T - time constant
      */
-    private double timeConstant;
+    private final double timeConstant;
 
     /**
      * Value on the previous tick
      */
-    transient private double prev;															//! null initial conditions
+    private double prev;															//! null initial conditions
 
     public FirstOrderLag(double samplingTime, double gain,
             double timeConstant) {
@@ -35,15 +35,23 @@ class FirstOrderLag extends DynamicItem {
 
         this.gain = gain;
         this.timeConstant = timeConstant;
-        this.prev = initialCondition;
+
+        //this was a bug
+        //this.prev = initialCondition;
     }
 
     /**
      * @{inheritDoc}
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
+    public DynamicItem clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public void setInitialCondition(double initialCondition) {
+        super.setInitialCondition(initialCondition);
+        prev = initialCondition;
     }
 
     /**
@@ -53,27 +61,11 @@ class FirstOrderLag extends DynamicItem {
     public double handleValue(double in) {
 
         /* backward Euler method for first-order item */
-        double result = prev + (getSamplingTime() * (gain * in - prev)) / timeConstant;
+        double result
+                = prev + (getSamplingTime() * (gain * in - prev)) / timeConstant;
 
         /* remember the previous item */
         prev = result;
         return result;
-    }
-
-    /* Getters and setters, primarily for debugging */
-    double getGain() {
-        return this.gain;
-    }
-
-    void setGain(double gain) {
-        this.gain = gain;
-    }
-
-    double getTimeConstant() {
-        return this.timeConstant;
-    }
-
-    void setTimeConstant(double timeConstant) {
-        this.timeConstant = timeConstant;
     }
 }

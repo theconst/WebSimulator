@@ -1,0 +1,1046 @@
+INFO	?	main	2017-03-11T08:46:17.200Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath3241220832961653163.txt
+SEVERE	?	main	2017-03-11T08:46:17.226Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:22.390Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath6049163243456235068.txt
+SEVERE	?	main	2017-03-11T08:46:22.399Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:27.582Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath7761873256053016008.txt
+SEVERE	?	main	2017-03-11T08:46:27.653Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:29.329Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath2433650516392688331.txt
+SEVERE	?	main	2017-03-11T08:46:29.422Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:38.807Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4499261276541853117.txt
+SEVERE	?	main	2017-03-11T08:46:38.827Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:41.319Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath969561862821654043.txt
+SEVERE	?	main	2017-03-11T08:46:41.423Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:46:42.455Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath1629151616033990935.txt
+SEVERE	?	main	2017-03-11T08:46:42.497Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.access$600(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.didClose(JavaLanguageServer.java:227)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:202)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 20 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 23 more
+
+INFO	?	main	2017-03-11T08:47:03.577Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\SimulationService.java]
+INFO	?	main	2017-03-11T08:47:03.581Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath5889329106517671781.txt
+SEVERE	?	main	2017-03-11T08:47:03.615Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:303)
+	at org.javacs.JavaLanguageServer.access$1000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.lambda$didOpen$14(JavaLanguageServer.java:193)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer$1.didOpen(JavaLanguageServer.java:188)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:198)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:31.997Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\impl\SimulationServiceImpl.java]
+INFO	?	main	2017-03-11T08:47:32.002Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath3722924385084299475.txt
+SEVERE	?	main	2017-03-11T08:47:32.065Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:303)
+	at org.javacs.JavaLanguageServer.access$1000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.lambda$didOpen$14(JavaLanguageServer.java:193)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer$1.didOpen(JavaLanguageServer.java:188)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:198)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:32.070Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath3544136667937033971.txt
+SEVERE	?	main	2017-03-11T08:47:32.415Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.access$600(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.didClose(JavaLanguageServer.java:227)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:202)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 20 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 23 more
+
+INFO	?	main	2017-03-11T08:47:33.577Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4962529972429848680.txt
+SEVERE	?	main	2017-03-11T08:47:33.603Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:47:36.491Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath5724370676097607338.txt
+SEVERE	?	main	2017-03-11T08:47:36.500Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:47:42.360Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4700457578625021837.txt
+SEVERE	?	main	2017-03-11T08:47:42.440Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$gotoDefinition$32(JavaLanguageServer.java:846)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.gotoDefinition(JavaLanguageServer.java:845)
+	at org.javacs.JavaLanguageServer$1.definition(JavaLanguageServer.java:128)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:134)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:42.681Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\entity\ModellingData.java]
+INFO	?	main	2017-03-11T08:47:42.687Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath3102291180931493.txt
+SEVERE	?	main	2017-03-11T08:47:42.763Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:303)
+	at org.javacs.JavaLanguageServer.access$1000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.lambda$didOpen$14(JavaLanguageServer.java:193)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer$1.didOpen(JavaLanguageServer.java:188)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:198)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:43.090Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\SimulationService.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\entity\ModellingData.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\impl\SimulationServiceImpl.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\controller\SimulationWebSocketHandler.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\simulation\InitialParameters.java]
+INFO	?	main	2017-03-11T08:47:43.094Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4617388736897985260.txt
+SEVERE	?	main	2017-03-11T08:47:43.148Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.access$800(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.didSave(JavaLanguageServer.java:247)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:204)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 20 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 23 more
+
+INFO	?	main	2017-03-11T08:47:44.958Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath2104875005017347285.txt
+SEVERE	?	main	2017-03-11T08:47:44.993Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:47:46.040Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath256499139792870940.txt
+SEVERE	?	main	2017-03-11T08:47:46.106Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$gotoDefinition$32(JavaLanguageServer.java:846)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.gotoDefinition(JavaLanguageServer.java:845)
+	at org.javacs.JavaLanguageServer$1.definition(JavaLanguageServer.java:128)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:134)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:46.195Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath7857163239209613317.txt
+SEVERE	?	main	2017-03-11T08:47:46.214Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$gotoDefinition$32(JavaLanguageServer.java:846)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.gotoDefinition(JavaLanguageServer.java:845)
+	at org.javacs.JavaLanguageServer$1.definition(JavaLanguageServer.java:128)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:134)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 23 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 26 more
+
+INFO	?	main	2017-03-11T08:47:46.467Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\SimulationService.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\entity\ModellingData.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\impl\SimulationServiceImpl.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\controller\SimulationWebSocketHandler.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\simulation\InitialParameters.java]
+INFO	?	main	2017-03-11T08:47:46.488Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath775977380673294731.txt
+SEVERE	?	main	2017-03-11T08:47:46.547Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.access$800(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.didSave(JavaLanguageServer.java:247)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:204)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 20 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 23 more
+
+INFO	?	main	2017-03-11T08:47:52.792Z	org.javacs.JavaLanguageServer#doLint	Lint [f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\SimulationService.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\entity\ModellingData.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\services\impl\SimulationServiceImpl.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\controller\SimulationWebSocketHandler.java, f:\My_documents\NetBeansProjects\WebSimulatorMaven\src\main\java\ua\kpi\atep\model\simulation\InitialParameters.java]
+INFO	?	main	2017-03-11T08:47:52.811Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath1128244065641324970.txt
+SEVERE	?	main	2017-03-11T08:47:52.894Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.doLint(JavaLanguageServer.java:315)
+	at org.javacs.JavaLanguageServer.access$800(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.didSave(JavaLanguageServer.java:247)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:204)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:194)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 20 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 23 more
+
+INFO	?	main	2017-03-11T08:48:23.440Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4668193444788434864.txt
+SEVERE	?	main	2017-03-11T08:48:23.488Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:48:25.705Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath5099679327195548939.txt
+SEVERE	?	main	2017-03-11T08:48:25.719Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:48:26.596Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath3639270502102953384.txt
+SEVERE	?	main	2017-03-11T08:48:26.620Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:49:42.337Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath2618491370854047148.txt
+SEVERE	?	main	2017-03-11T08:49:42.353Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:49:42.720Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath6114257776963591503.txt
+SEVERE	?	main	2017-03-11T08:49:42.749Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+
+INFO	?	main	2017-03-11T08:49:47.075Z	org.javacs.JavaLanguageServer#buildClassPath	Emit classpath to C:\Users\Home\AppData\Local\Temp\classpath4370635523513242627.txt
+SEVERE	?	main	2017-03-11T08:49:47.092Z	org.javacs.Main$4#onError	java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+java.lang.RuntimeException: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:593)
+	at org.javacs.JavaLanguageServer.readIfConfig(JavaLanguageServer.java:556)
+	at org.javacs.JavaLanguageServer.doFindConfig(JavaLanguageServer.java:525)
+	at java.util.HashMap.computeIfAbsent(HashMap.java:1118)
+	at org.javacs.JavaLanguageServer.findConfig(JavaLanguageServer.java:517)
+	at org.javacs.JavaLanguageServer.findCompiler(JavaLanguageServer.java:477)
+	at org.javacs.JavaLanguageServer.findTree(JavaLanguageServer.java:809)
+	at org.javacs.JavaLanguageServer.lambda$doHover$34(JavaLanguageServer.java:983)
+	at java.util.Optional.ifPresent(Optional.java:159)
+	at org.javacs.JavaLanguageServer.doHover(JavaLanguageServer.java:982)
+	at org.javacs.JavaLanguageServer.access$000(JavaLanguageServer.java:31)
+	at org.javacs.JavaLanguageServer$1.hover(JavaLanguageServer.java:118)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint._doAccept(LanguageServerEndpoint.xtend:130)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.doAccept(LanguageServerEndpoint.xtend:117)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend:114)
+	at io.typefox.lsapi.services.transport.server.LanguageServerEndpoint.accept(LanguageServerEndpoint.xtend)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.handleMessage(LanguageEndpoint.xtend:67)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.lambda$connect$4(LanguageEndpoint.xtend:61)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:46)
+	at io.typefox.lsapi.services.json.StreamMessageReader$1.apply(StreamMessageReader.java:44)
+	at io.typefox.lsapi.services.json.StreamMessageReader.handleMessage(StreamMessageReader.xtend:128)
+	at io.typefox.lsapi.services.json.StreamMessageReader.listen(StreamMessageReader.xtend:61)
+	at io.typefox.lsapi.services.transport.AbstractLanguageEndpoint.connect(LanguageEndpoint.xtend:60)
+	at org.javacs.Main.run(Main.java:150)
+	at org.javacs.Main.main(Main.java:69)
+Caused by: java.io.IOException: Cannot run program "null" (in directory "f:\My_documents\NetBeansProjects\WebSimulatorMaven"): CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048)
+	at java.lang.Runtime.exec(Runtime.java:620)
+	at java.lang.Runtime.exec(Runtime.java:450)
+	at org.javacs.JavaLanguageServer.buildClassPath(JavaLanguageServer.java:586)
+	... 24 more
+Caused by: java.io.IOException: CreateProcess error=2, Не удается найти указанный файл
+	at java.lang.ProcessImpl.create(Native Method)
+	at java.lang.ProcessImpl.<init>(ProcessImpl.java:386)
+	at java.lang.ProcessImpl.start(ProcessImpl.java:137)
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)
+	... 27 more
+

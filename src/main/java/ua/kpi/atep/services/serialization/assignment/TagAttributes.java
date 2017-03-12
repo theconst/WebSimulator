@@ -1,6 +1,8 @@
 package ua.kpi.atep.services.serialization.assignment;
 
-/* TagAttributes of assignment and its elements */
+/**
+ * TagAttributes of assignment and its elements 
+ */
 enum TagAttributes {
     
     ID, 

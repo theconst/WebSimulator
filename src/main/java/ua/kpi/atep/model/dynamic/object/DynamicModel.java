@@ -10,45 +10,46 @@ import ua.kpi.atep.model.dynamic.items.DynamicItem;
 /**
  * Represents the dynamic model (MIMO)
  * 
- * You can create some kind of wrapper but do not override the behaviour
  * 
  * @author Konstantin Kovalchuk
  */
 public final class DynamicModel implements Serializable {
     
-    public static double DEFAULT_SAMPLING = 0.1;
+    public static final double DEFAULT_SAMPLING = 0.1;
 
     private double timespan;
 
     private final DynamicItem[][] transferFunctions;
 
-    protected Output output;  
+    protected DynamicModelOutput output;  
     
-    protected Input input;
+    protected DynamicModelInput input;
     
     protected int noOfInputs;
     
     protected int noOfOutputs;
+   
+    private final double[]  outputValue;
 
-    //input and outpu are bount to the dynamic model, so no copy is made
-    protected DynamicModel(Input input, Output output) {
+    //input and output are bount to the dynamic model, so no copy is made
+    protected DynamicModel(DynamicModelInput input, DynamicModelOutput output) {
         this.input = input;
         this.output = output;
         this.noOfInputs = input.size();
         this.noOfOutputs = output.size();
+        outputValue = new double[output.size()];
         this.transferFunctions = new DynamicItem[noOfInputs][noOfOutputs];
     }
 
     /* Model is responsible for its inputs and outputs*/
 
-    public final Input getInput() {
+    public final DynamicModelInput getInput() {
         return input;
-    };
+    }
     
-    public final Output getOutput() {
+    public final DynamicModelOutput getOutput() {
         return output;
-    };
-    
+    }
     
     public final int getInputsCount() {
         return noOfInputs;
@@ -57,6 +58,7 @@ public final class DynamicModel implements Serializable {
     public final int getOutputsCount() {
         return noOfOutputs;
     }
+    
     
     public final void setTransferFunction(String from, 
             DynamicItem transferFunction, String to) {
@@ -77,14 +79,12 @@ public final class DynamicModel implements Serializable {
         transferFunctions[i][j] = it;
     }
     
-    public final double[] computeValue() {
-        double[] outputValue = output.toArray();
+    public final double[] value(double inputValue[], boolean deep) {
+        if (inputValue.length != this.input.size()) {
+            throw new IllegalArgumentException();
+        }
         
-        //fill in the shallow copy
         Arrays.fill(outputValue, 0.0);
-        
-        //overwrite output
-        double[] inputValue = input.toArray();
         
         for (int inp = 0; inp < noOfInputs; ++inp) {
             for (int out = 0; out < noOfOutputs; ++out) {
@@ -94,17 +94,6 @@ public final class DynamicModel implements Serializable {
             }
         }
         return outputValue;
-    }
-    
-    public final DoubleVector value(DoubleVector input, boolean deep) {
-        value(input.toArray(), deep);
-        return this.output;
-    }
-    
-    public final double[] value(double input[], boolean deep) {
-        this.input.setValue(input);
-        computeValue();
-        return this.output.toArray(deep);
     }
 
     private double value(DynamicItem tf, double in, double timespan) {
@@ -128,20 +117,12 @@ public final class DynamicModel implements Serializable {
     public final void setTimespan(double timespan) {
         if (timespan <= 0) {
             throw new IllegalArgumentException();
-        };
+        }
         this.timespan = timespan;
     }
-
-    public static DynamicModel newInstance(DynamicModelType type) {
-        switch (type) {
-//            case VAPOR_HEATER:
-//                return new VaporHeater(DEFAULT_SAMPLING);
-            default:
-                throw new IllegalArgumentException();
-        }
-    }
     
-    public static DynamicModel newInstance(Input input, Output output) {
+    public static DynamicModel newInstance(DynamicModelInput input, 
+            DynamicModelOutput output) {
         return new DynamicModel(input, output);
     }
 }

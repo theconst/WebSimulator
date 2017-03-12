@@ -14,13 +14,14 @@
         
         <!-- Add multipart resolver -->
         <multipart-config>
-            <!--<loca   tion>Store in root </location> -->
+            <!--<location>Store in root </location> -->
             <max-file-size>10000000</max-file-size>
             <max-request-size>12000000</max-request-size>
             <file-size-threshold>11000000</file-size-threshold>
         </multipart-config> 
     </servlet>
     
+    <!-- servlet mappings -->
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
@@ -31,7 +32,24 @@
         <url-pattern></url-pattern>
     </servlet-mapping>
     
-    <!-- added to correctly find SpringConfigurator -->
+    
+    <!-- Fallback page -->
+    <error-page>
+        <location>/content/error.html</location>
+    </error-page>
+    
+    <!-- timeout of the session -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
+    </context-param>
+    
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener

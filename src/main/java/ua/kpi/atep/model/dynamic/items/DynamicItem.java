@@ -1,6 +1,5 @@
 package ua.kpi.atep.model.dynamic.items;
 
-
 import java.io.Serializable;
 
 /**
@@ -15,6 +14,12 @@ public abstract class DynamicItem implements Serializable, Cloneable {
     
     private static final String SAMPLING_GREATER_THAN_ZERO_MSG
             = "Samling time must be greater than zero";
+    
+    private static final String TIMESPAN_GREATER_OR_EQUAL_TO_ZERO_MSG 
+            = "Timespan must be greater than zero";
+    
+    protected static final String SETTING_INITIAL_CONDITION_ON_INITIALIZED_ITEM 
+            = "Setting initial condition on initialized item";
     
     private static final long serialVersionUID = 65535L;
     
@@ -31,6 +36,9 @@ public abstract class DynamicItem implements Serializable, Cloneable {
      */
     protected boolean initialized = false;
 
+    /**
+     * Initial condition of the item
+     */
     protected double initialCondition;
     
     /**
@@ -53,7 +61,6 @@ public abstract class DynamicItem implements Serializable, Cloneable {
     
     /**
      * Default constructor
-     * 
      */
     public DynamicItem() {
         this(DEFAULT_SAMPLING, 0.0);
@@ -70,8 +77,8 @@ public abstract class DynamicItem implements Serializable, Cloneable {
      * @throws CloneNotSupportedException 
      */
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public DynamicItem clone() throws CloneNotSupportedException {
+        return (DynamicItem) super.clone();
     }
 
     /**
@@ -83,16 +90,16 @@ public abstract class DynamicItem implements Serializable, Cloneable {
     protected abstract double handleValue(double in);
 
     
-    /**
+    /** 
+     * Evalueates value after samples * sampling time
      * 
-     * 
-     * @param in
-     * @param steps
-     * @return 
+     * @param in            input of the dynamic item
+     * @param samples       number of samples
+     * @return              value of the dynamic item after samples passed
      */
-    public double value(double in, int steps) {
+    private double value(double in, int samples) {
         if (initialized) {
-            for (int i = 0; i < steps - 1; i++) {
+            for (int i = 0; i < samples - 1; i++) {
                 handleValue(in);
             }
             return handleValue(in);
@@ -101,74 +108,75 @@ public abstract class DynamicItem implements Serializable, Cloneable {
         return getInitialCondition();
     }
     
+    
+    /**
+     * Evalueates value after timespan time passed
+     * 
+     * @param in            input value
+     * @param timespan      
+     * @return              value of the dynamic item after timespan passed    
+     */
     public double value(double in, double timespan) {
-        return value(in, (int) (timespan / samplingTime) + 1);
+        checkTimespan(timespan);
+        return value(in, (int) Math.ceil(timespan / samplingTime));
     }
     
 
+    /**
+     * Convinience method for evaluation of value after one sample
+     * 
+     * @param in input value
+     * @return value after one sample
+     */
     public double value(double in) {
         return value(in, 1);
     }
 
+    /**
+     * Gets the sampling time of the item
+     * 
+     * @return 
+     */
     public double getSamplingTime() {
         return samplingTime;
     }
-
-    public void setSamplingTime(double samplingTime) {
-        this.samplingTime = samplingTime;
-    }
-
+    
+    
     /**
      * @return the initialCondition
      */
     public double getInitialCondition() {
         return initialCondition;
     }
+    
+    /**
+     * Checks in the item was initialized
+     */
+    protected void checkNotInitialized() {
+         if (initialized) {
+            throw new IllegalStateException();
+        }
+    }
 
     /**
+     * Overrided in the sublasses
+     * 
      * @param initialCondition the initialCondition to set
      */
     public void setInitialCondition(double initialCondition) {
+        checkNotInitialized();
         this.initialCondition = initialCondition;
     }
     
     
     /**
-     * Returns completely new item with feedback connection
+     * Checks timespan on correctness
      * 
-     * @param other
-     * @return 
+     * @param arg 
      */
-    public DynamicItem parallel(DynamicItem other) {
-        try {
-            return DynamicItems.parallelSumConnection(
-                    (DynamicItem) this.clone(), (DynamicItem) other.clone());
-        } catch (CloneNotSupportedException ex) {
-           throw new UnsupportedOperationException(ex);
-        } 
-    } 
-    
-    /**
-     * Returns completely new dynamic item thie feedbakcConnection
-     * 
-     * @param other
-     * @return 
-     */
-    public DynamicItem sequential(DynamicItem other) {
-        try {
-            return DynamicItems.sequentialConnection(
-                    (DynamicItem) this.clone(), (DynamicItem) other.clone());
-        } catch (CloneNotSupportedException ex) {
-            throw new UnsupportedOperationException(ex);
+    private void checkTimespan(double arg) {
+        if (arg <= 0) {
+            throw new IllegalArgumentException(TIMESPAN_GREATER_OR_EQUAL_TO_ZERO_MSG);
         }
-    }
-    
-    public DynamicItem negativeFeedback() {
-        try {
-            return DynamicItems
-                    .negativeFeedbackConnection((DynamicItem) this.clone());
-        } catch (CloneNotSupportedException ex) {
-            throw new UnsupportedOperationException(ex);
-        } 
     }
 }
