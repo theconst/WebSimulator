@@ -14,6 +14,7 @@ import ua.kpi.atep.model.entity.Student;
  * @author Konstantin Kovalchuk
  */
 public interface AdministrationService {
+  
     
     public void createAdminAccount(String login, String password);
     
@@ -36,6 +37,8 @@ public interface AdministrationService {
      */
     AppModelState createAssignment(UserSession session, 
             Assignment assigment);
+    
+    void createAssignment(Assignment assignment);
     
     List<Student> getStudentList(UserSession session);
 }

@@ -2,17 +2,24 @@
  * Simulation.js
  */
 
-'use strict'
+'use strict';
 
+$(document).ready(main);
+
+/* applicaton function */
 function main() {
     //function that runs the application
     function run(app, dataSource, period) {
         if (app.isFinished()) {
             return Promise.resolve("finished");
-        } else if (app.isPaused()) { //delay and then loop
+        } else if (app.isPaused()) {
+            
+            
+            //delay and then loop
             return delay("ignored", period).then(function() {
                 return run(app, dataSource, period);
             });
+            
         } else {
             var request = dataSource.Request(app.getUserInput());
             var wait = delay("ignored", period);
@@ -23,6 +30,7 @@ function main() {
             });
         }
     }
+    
     var historyURL;
     var dataSource;
     var app;
@@ -64,35 +72,44 @@ function main() {
                     min : mins[i], max : maxs[i]}
             });
             
-            app = new view.View(valveInitialPositions, speedCalculationStrategy);
+            app = new view.View(valveInitialPositions, minMessagePeriod,
+                        speedCalculationStrategy);
             app.showAll(); //show the display
 
             return run(app, dataSource, minMessagePeriod); //run the app with the specified datasource and period
+        }).then(function() {
+            return dataSource.Request({"action" : "finish"});
         }).then(function() {
              return dataSource.Close(1000);     //close the connection
         }).then(function() {
             return fetch(historyURL, withCredentials);
         }).then(function(response) {
-            return response.blob();
+            //name and content
+            var disposition = response.headers.get('Content-Disposition');
+            var name = disposition.match(/filename="(.+)"/)[1];
+            
+            if (!name) {
+                //no file name supplied!
+                throw new Error("filename must be passed");
+            }
+            
+            //return file and its name in the array (is it ok ?)
+            return Promise.all([response.blob(), name]);  
         }).then(function(blob) {
-            download(blob, prettyPrintDate(new Date()));    
+            download(blob[0], prettyPrintDate(new Date()) + blob[1]);    
         }).catch(function(error) {
 
             /* just log the ugly things */
             console.log(error);
 //            main();                             //retry the steps
-            window.location.reload();             //less user-friendly but more secure
+//            window.location.reload();             //less user-friendly but more secure
         }).then(function() {
              /* Perform clenup and other */
-            app && app.hideAll();
+            app && app.hideAll();               //just hide and document nothing
             heartbeat && heartbeat.stop();
 //            goHome();
         }) ; //fetch history
 }
-
-
-//perform action
-$(window).on("load", main);
 
 
 function goHome() {

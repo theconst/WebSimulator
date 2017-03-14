@@ -13,6 +13,7 @@ import ua.kpi.atep.model.entity.Assignment;
 import ua.kpi.atep.model.entity.EntityFactory;
 import ua.kpi.atep.model.entity.Permission;
 import ua.kpi.atep.model.entity.Student;
+import ua.kpi.atep.services.AdministrationService;
 import ua.kpi.atep.services.AppModelState;
 import ua.kpi.atep.services.PasswordHasher;
 import ua.kpi.atep.services.UserSession;
@@ -26,11 +27,6 @@ import ua.kpi.atep.services.UserSession;
  */
 @Service
 public class RegisterServiceImpl implements RegisterService {
-
-    /*
-     * Every student is assigned a default model
-     */
-    private static final int DEFAULT_TASK_ID = 0;
 
     @Autowired
     private EntityFactory entityFactory;
@@ -62,7 +58,7 @@ public class RegisterServiceImpl implements RegisterService {
             return AppModelState.REGISTER_FAILURE;               //user exists
         }
         //register student with default task
-        Assignment assignment = assignmentDAO.find(DEFAULT_TASK_ID);
+        Assignment assignment = assignmentDAO.find(DEFAULT_ASSIGMENT_ID);
         if (assignment == null) {
             
             //fail safely

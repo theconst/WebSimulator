@@ -4,9 +4,11 @@
 package ua.kpi.atep.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.Cookie;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.MediaType;
@@ -32,13 +33,13 @@ import ua.kpi.atep.model.entity.Student;
 import static ua.kpi.atep.services.AppModelState.ADMIN_LOGIN;
 import static ua.kpi.atep.services.AppModelState.ASSIGNMENT_CREATION_SUCCESS;
 
-//model states
 import static ua.kpi.atep.services.AppModelState.LOGIN_FAILURE;
 import static ua.kpi.atep.services.AppModelState.LOGIN_SUCCESS;
 import static ua.kpi.atep.services.AppModelState.REGISTER_SUCCESS;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_NO_ASSIGNMENT;
 import static ua.kpi.atep.services.AppModelState.SIMULATION_START;
 import static ua.kpi.atep.services.AppModelState.UNATORIZED_ACCESS;
+import static ua.kpi.atep.services.RegisterService.DEFAULT_ASSIGMENT_ID;
 import ua.kpi.atep.services.serialization.Json;
 import ua.kpi.atep.services.serialization.SerializationException;
 import ua.kpi.atep.services.serialization.Serializer;
@@ -56,11 +57,14 @@ public class FrontController {
      */
     private static final String SPRING_REDIR = "redirect:";
 
-    private static final String ATTACHMENT = "attachment;filename=values.csv";
+    private static final String ATTACHMENT = "attachment;filename=\"values.csv\"";
 
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     
     private static final String STILL_ALIVE_MESSAGE = "User {0} is still alive";
+    
+    private static final String FAILED_TO_INITIALIZE_MESSAGE 
+            = "Failed to initialize the application";
     
     private static final Logger LOGGER = Logger.getLogger(FrontController.class.getName());
 
@@ -109,6 +113,9 @@ public class FrontController {
     @Value("${web.admin.password}")
     private String adminPassword;
     
+    @Value("${web.assignment.default}")
+    private String pathToDefaultAssignment;
+    
     @Autowired
     private MessageSettings messageSettings;
 
@@ -135,6 +142,9 @@ public class FrontController {
 
     @Autowired
     private Serializer<Assignment, Reader, Writer> assignmentSerializer;
+    
+    @Autowired
+    private ServletContext context;
 
     /*
      * Controller is sinleton
@@ -158,7 +168,10 @@ public class FrontController {
      */
     @PostConstruct
     private void init() {
-        //is initiazed on container initialization , no synchronization needed
+        
+        /*
+         * Initialize primitive view resolver
+         */
         viewResolver = new EnumMap<>(AppModelState.class);
 
         viewResolver.put(SIMULATION_START, redirectTo(simulationPage));
@@ -177,6 +190,16 @@ public class FrontController {
          * Initialize services defaults
          */
         administrationService.createAdminAccount(adminLogin, adminPassword);
+        
+        try (InputStream is = context.getResourceAsStream(pathToDefaultAssignment)) {
+            InputStreamReader reader 
+                    = new InputStreamReader(is, StandardCharsets.UTF_8);
+            Assignment assignemnt = assignmentSerializer.deserialize(reader);  
+            assignemnt.setId(DEFAULT_ASSIGMENT_ID);
+            administrationService.createAssignment(assignemnt);         
+        } catch(SerializationException | IOException ex) {
+            LOGGER.log(Level.SEVERE, FAILED_TO_INITIALIZE_MESSAGE);
+        }
     }
     
     
@@ -234,11 +257,11 @@ public class FrontController {
             method = RequestMethod.POST)
     public String signup(HttpServletRequest request) {
         return resolveView(
-                registerService.register(userSession,
-                        request.getParameter(usernameParam),
-                        request.getParameter(loginParam),
-                        request.getParameter(passwordParam),
-                        request.getParameter(groupParam))
+            registerService.register(userSession,
+                    request.getParameter(usernameParam),
+                    request.getParameter(loginParam),
+                    request.getParameter(passwordParam),
+                    request.getParameter(groupParam))
         );
     }
 
@@ -252,11 +275,11 @@ public class FrontController {
             method = RequestMethod.POST)
     public String login(HttpServletRequest request) {
         return resolveView(
-                loginService.login(
-                        userSession,
-                        request.getParameter(loginParam),
-                        request.getParameter(passwordParam)
-                )
+            loginService.login(
+                    userSession,
+                    request.getParameter(loginParam),
+                    request.getParameter(passwordParam)
+            )
         );
     }
 
@@ -283,6 +306,8 @@ public class FrontController {
         return "";  //TODO: remove the stub
     }
 
+    
+        //TODO: represent simulation output and history as objects and serialize them
     @RequestMapping(value = "${web.action.history}")
     @ResponseBody
     public String getStory(HttpServletResponse response) {
@@ -295,17 +320,19 @@ public class FrontController {
             response.setStatus(HttpServletResponse.SC_ACCEPTED);
             return closeWebSocketOrDoSimulation;
         }
-        response.setHeader(CONTENT_DISPOSITION_HEADER, ATTACHMENT);
+        response.setHeader(CONTENT_DISPOSITION_HEADER, ATTACHMENT);     
+        //TODO: reconsider this
         response.setContentType(simulationService.getUserActivityContentType());
         return userActivity;
     }
 
     @RequestMapping(value = "${web.action.uploadmodel}")
-    public String uploadModel(
+    public String uploadAssignment(
             @RequestParam("${web.param.modelfile}") MultipartFile file,
             HttpServletResponse response)
             throws IOException, SerializationException {
-        try (Reader xml = new InputStreamReader(file.getInputStream(), "UTF-8")) {
+        try (Reader xml = new InputStreamReader(file.getInputStream(), 
+                StandardCharsets.UTF_8)) {
             Assignment assignment = assignmentSerializer.deserialize(xml);
             AppModelState result = administrationService.createAssignment(
                     userSession, assignment);

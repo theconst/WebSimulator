@@ -73,6 +73,12 @@ public class SimulationServiceImpl implements SimulationService {
         return AppModelState.SIMULATION_START;
     }
 
+    
+    /**
+     * TODO: store user activity in some internal format,
+     * then serialize / deserialize it 
+     * @return 
+     */
     @Override
     public String getUserActivityContentType() {
         return CONTENT_TYPE;

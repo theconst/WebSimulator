@@ -1,5 +1,5 @@
 /*
- * SimulationOutput.java    TODO: decouple from json representaitin
+ * SimulationOutput.java    TODO: decouple from json representaition
  */
 package ua.kpi.atep.model.simulation;
 

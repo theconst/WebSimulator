@@ -3,6 +3,8 @@
  */
 package ua.kpi.atep.controller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.socket.*;
@@ -19,6 +21,10 @@ import ua.kpi.atep.services.*;
  * @author Konstantin Kovalchuk
  */
 public class SimulationWebSocketHandler extends TextWebSocketHandler {
+    
+    private static final String USER_FINISHED_SIMULATION = "User {0} finished simulation";
+    
+    private static final Logger LOGGER = Logger.getLogger(SimulationWebSocketHandler.class.getName());
     
     //find a less dependent way for accessing the session
     private static final String USER_SESSION = "scopedTarget.userSessionImpl";
@@ -56,6 +62,8 @@ public class SimulationWebSocketHandler extends TextWebSocketHandler {
      */
     private double[][] chunk;
 
+    private UserSession userSession;
+    
     /**
      * Service for simulation initialization
      */
@@ -78,8 +86,7 @@ public class SimulationWebSocketHandler extends TextWebSocketHandler {
      */
     private void initialize(WebSocketSession session) throws Exception {
          /* get parameters from http session */
-        UserSession userSession
-                = (UserSession) session.getAttributes().get(USER_SESSION);
+       userSession = (UserSession) session.getAttributes().get(USER_SESSION);
 
 
         userID = userSession.getUser().getId();
@@ -114,6 +121,15 @@ public class SimulationWebSocketHandler extends TextWebSocketHandler {
            return;
         } 
         
+        if (text.contains("finish")) {
+            simulationService.saveModellingData(userID, story.toString());
+            LOGGER.log(Level.INFO, USER_FINISHED_SIMULATION, 
+                    userSession.getUser().getLogin());
+            session.sendMessage(new TextMessage("{}"));
+            story.close();
+            return;
+        }
+        
         UserInput input = Json.parse(message.getPayload(), UserInput.class);
         SimulationOutput output = runner.doSimulationStep(input);
 
@@ -126,7 +142,6 @@ public class SimulationWebSocketHandler extends TextWebSocketHandler {
     }
 
     /**
-     * When the connection closes, persist user data to database
      *
      * @param session
      * @param status
@@ -137,7 +152,6 @@ public class SimulationWebSocketHandler extends TextWebSocketHandler {
             CloseStatus status) throws Exception {
         if (story != null) {
             story.close();
-            simulationService.saveModellingData(userID, story.toString());
         }
     }
     

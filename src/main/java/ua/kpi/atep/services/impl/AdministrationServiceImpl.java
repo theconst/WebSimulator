@@ -128,4 +128,9 @@ public class AdministrationServiceImpl implements AdministrationService {
         userDAO.update(user);
     }
 
+    @Override
+    @Transactional
+    public void createAssignment(Assignment assignment) { 
+        assignmentDAO.update(assignment);
+    }
 }

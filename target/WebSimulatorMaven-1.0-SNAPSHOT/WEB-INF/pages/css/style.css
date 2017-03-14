@@ -56,7 +56,7 @@ form fieldset {
 #charts-container {
     height: 100%;
     display: inline-block;
-    width: 59%;
+    width: 100%;
     padding: 1%;
 }
 
@@ -67,7 +67,9 @@ form fieldset {
     display: inline-block;
     padding-left: 5%;
     padding-top: 2%;
-    width: 40%;
+    width: 100%;
+    max-width: 508px;
+    max-height: 283.57px;
     height: 97%;
 }
 

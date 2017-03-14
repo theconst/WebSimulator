@@ -2,7 +2,7 @@
 <assignment variant="0">
     <comment>Variant1</comment>
         
-    <model sampling="0.1">
+    <model sampling="0.25">
         <transferFunctions>
             
             <transferFunction id="w3"> <!-- gain="-0.0021Ni+9.44" timeConstant="-0.25Ni+325" delay="-0.338Ni+238" -->

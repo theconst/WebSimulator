@@ -9,7 +9,7 @@
  */
 ;
 var view = (function($) {
-    function View(valveInitial, speedCalculationStrategy) {
+    function View(valveInitial, sampling, speedCalculationStrategy) {
         var _self = this;
 
         //initialize inputs and chart by default,
@@ -22,7 +22,7 @@ var view = (function($) {
 
         //stores data nessesary for simulation
         this.inputs = {
-            sampling: 1,
+            sampling: sampling,
             speed: 1,
             "valve-1": valveInitial["input1"],
             "valve-2": valveInitial["input2"],
