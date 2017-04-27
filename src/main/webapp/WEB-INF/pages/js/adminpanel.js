@@ -1,20 +1,45 @@
 /* 
- * simple script to list students
+ * simple script to list students, upload files and perform other admin actions
  */
 $(window).on('load', function () {
     
+    /* propagate click to file upload form */
+    $('#fileupload-visible').click(function() {
+        $('#fileupload-hidden').trigger('click');
+    });
+    
+    /* upload file as multipart / form data to server */
+    $('#upload').click(function() {
+        $.ajax({
+            url: '/WebSimulator/uploadmodel',
+            method: 'POST',
+            data: $('#uploadbanner').serialize(),
+            contentType: 'multipart/form-data',
+            async: true,
+            success: function(data) {
+                console.log(data);
+            }
+        });  
+    });
+    
+    /* list students */
     $('#list').click(function () {
         getListOfStutends(function (studentList) {
             /* clear table */
-            $('#student-list').html($('#student-list-header').html()).append(
+            $('#student-list-content').replaceWith(
                     toTable(studentList, ['login', 'name', 'group', 'variant']));
         }, function (_, status, _) {
             console.log('Response status: ' + status);
         });
     });
     
+    /**
+     * Gets list of students
+     * @param {success} callback called on success
+     * @param {failure} callback called on failure
+     */
     function getListOfStutends(success, failure) {
-        $.ajax({
+       $.ajax({
             url: '/WebSimulator/liststudents',
             method: 'GET',
             async: true,
@@ -36,7 +61,8 @@ $(window).on('load', function () {
 
         /* Simple helper functions */
         function entry(e) {
-            return '<td>' + e + '</td>';
+            //set value as text area
+            return '<td><input type="text" value="' + e + '"/></td>';
         }
 
         function row(r) {

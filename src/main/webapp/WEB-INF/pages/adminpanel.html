@@ -10,29 +10,40 @@
         <script src="js/adminpanel.js"></script>
     </head>
     <body>
-        <h1 class="text-center">Адміністрування</h1>
+        <header>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/WebSimulator">Web Simulator</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="login.html">Головна</a></li>
+                        <li class="active"><a href="#">Адміністрування</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <div class="container">
-            <div class ="form-group">
+            <iframe id="empty" style="display:none" ></iframe>
+            <div class ="form-group" >
                 <form id="uploadbanner" 
                       enctype="multipart/form-data"
                       method="post" 
                       action="/WebSimulator/uploadmodel" 
-                      class="form-horizontal">
-                    <fieldset>
-                        <input id="fileupload" name="modelxml" type="file" />
-                        <input id="upload" type="submit" value="Завантажити модель" class="btn"/>
+                      class="form-horizontal"
+                      target="#">
+                    <fieldset name="Дії">
+                        <input id="fileupload-hidden" name="modelxml" type="file" style="display:none;" />
+                        <input id="fileupload-visible" type="button" class="btn btn-active" value="Вибрати файл" />
+                        <input id="upload" type="button" value="Завантажити модель" class="btn"/>
                     </fieldset>
                 </form>
-                <!-- in development -->
-                <form id="liststudents" >
-                    <input id="list" type="button" value="Список студентів" class="btn" />
-                </form>
-
-                <table id="student-list" class="table-bordered">
-                    <caption>Список студентів</caption>
-                    <tr id="student-list-header">
+                <table id="student-list" class="table-bordered table-hover">
+                    <caption><input id="list" type="button" class="btn" value="Список студентів" /></caption>
+                    <tr id="student" class="info">
                         <th>Логін</th><th>Ім&apos;я</th><th>Група</th><th>Варіант</th>
                     </tr>
+                    <tr id="student-list-content"> </tr>
                 </table>
             </div>
         </div>

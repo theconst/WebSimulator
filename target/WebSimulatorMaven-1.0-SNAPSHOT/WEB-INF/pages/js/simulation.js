@@ -105,7 +105,7 @@ function main() {
 //            window.location.reload();             //less user-friendly but more secure
         }).then(function() {
              /* Perform clenup and other */
-            app && app.hideAll();
+            app && app.hideAll();               //just hide and document nothing
             heartbeat && heartbeat.stop();
 //            goHome();
         }) ; //fetch history
